@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[45,)"
+license="MIT"
+
+[[mods]]
+modId="uchip"
+version="${file.jarVersion}"
+displayName="Microchips"
+logoFile="uchip.png"
+authors="ALotOfLetters"
+description='''
+Create computers with microchips.
+'''
+
+[[dependencies.uchip]]
+    modId="forge" 
+    mandatory=true
+    versionRange="[45,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.uchip]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19.3,1.20)"
+    ordering="NONE"
+    side="BOTH"
