@@ -9,8 +9,7 @@ public class MicrochipItems {
 
     public static ItemEntry<Item> PROCESSOR_6502;
 
-    private static final Registrate REGISTRATE = Microchip.REGISTRATE.get()
-            .creativeModeTab("uchip", (p) -> p.icon(PROCESSOR_6502::asStack), "Microchips");
+    private static final Registrate REGISTRATE = Microchip.REGISTRATE.get();
 
     public static void register() {
         PROCESSOR_6502 = REGISTRATE.item("processor_6502", Item::new)

@@ -12,11 +12,16 @@ public class Microchip
 {
     public static final String MOD_ID = "uchip";
 
-    public static final NonNullSupplier<Registrate> REGISTRATE = NonNullSupplier.lazy(() -> Registrate.create(MOD_ID));
+    public static final NonNullSupplier<Registrate> REGISTRATE = NonNullSupplier.lazy(() ->
+            Registrate.create(MOD_ID)
+                .creativeModeTab("uchip", (p) -> p.icon(MicrochipItems.PROCESSOR_6502::asStack), "Microchips")
+    );
 
     public Microchip()
     {
         MicrochipItems.register();
+        MicrochipLangPartials.register();
+        MicrochipBlocks.register();
     }
 
 }

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "uchip:block/chip_builder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "uchip:block/chip_builder"
+    },
+    "facing=south": {
+      "model": "uchip:block/chip_builder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "uchip:block/chip_builder",
+      "y": 270
+    }
+  }
+}
