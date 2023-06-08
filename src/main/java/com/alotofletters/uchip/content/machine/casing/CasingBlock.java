@@ -1,6 +1,7 @@
-package com.alotofletters.uchip.content.machine.chip_builder;
+package com.alotofletters.uchip.content.machine.casing;
 
 import com.alotofletters.uchip.MicrochipBlockEntities;
+import com.alotofletters.uchip.MicrochipBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -10,14 +11,20 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
-public class ChipBuilderBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public ChipBuilderBlock(Properties p_49795_) {
-        super(p_49795_);
+public class CasingBlock extends HorizontalDirectionalBlock implements EntityBlock {
+    public static final BooleanProperty HAS_BOARD = MicrochipBlockStateProperties.HAS_BOARD;
+    public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
+
+    public CasingBlock(Properties prop) {
+        super(prop);
         this.registerDefaultState(this.stateDefinition.any()
-                .setValue(FACING, Direction.NORTH));
+                .setValue(FACING, Direction.NORTH)
+                .setValue(HAS_BOARD, false)
+                .setValue(ENABLED, false));
     }
 
     @Nullable
@@ -29,11 +36,13 @@ public class ChipBuilderBlock extends HorizontalDirectionalBlock implements Enti
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_49915_) {
         p_49915_.add(FACING);
+        p_49915_.add(HAS_BOARD);
+        p_49915_.add(ENABLED);
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return MicrochipBlockEntities.CHIP_BUILDER.create(pos, state);
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return MicrochipBlockEntities.CASING.create(pos, state);
     }
 }

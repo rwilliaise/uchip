@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "enabled=false,facing=east,has_board=false": {
+      "model": "uchip:block/casing/empty",
+      "y": 90
+    },
+    "enabled=false,facing=east,has_board=true": {
+      "model": "uchip:block/casing/board",
+      "y": 90
+    },
+    "enabled=false,facing=north,has_board=false": {
+      "model": "uchip:block/casing/empty"
+    },
+    "enabled=false,facing=north,has_board=true": {
+      "model": "uchip:block/casing/board"
+    },
+    "enabled=false,facing=south,has_board=false": {
+      "model": "uchip:block/casing/empty",
+      "y": 180
+    },
+    "enabled=false,facing=south,has_board=true": {
+      "model": "uchip:block/casing/board",
+      "y": 180
+    },
+    "enabled=false,facing=west,has_board=false": {
+      "model": "uchip:block/casing/empty",
+      "y": 270
+    },
+    "enabled=false,facing=west,has_board=true": {
+      "model": "uchip:block/casing/board",
+      "y": 270
+    },
+    "enabled=true,facing=east,has_board=false": {
+      "model": "uchip:block/casing/enabled",
+      "y": 90
+    },
+    "enabled=true,facing=east,has_board=true": {
+      "model": "uchip:block/casing/enabled",
+      "y": 90
+    },
+    "enabled=true,facing=north,has_board=false": {
+      "model": "uchip:block/casing/enabled"
+    },
+    "enabled=true,facing=north,has_board=true": {
+      "model": "uchip:block/casing/enabled"
+    },
+    "enabled=true,facing=south,has_board=false": {
+      "model": "uchip:block/casing/enabled",
+      "y": 180
+    },
+    "enabled=true,facing=south,has_board=true": {
+      "model": "uchip:block/casing/enabled",
+      "y": 180
+    },
+    "enabled=true,facing=west,has_board=false": {
+      "model": "uchip:block/casing/enabled",
+      "y": 270
+    },
+    "enabled=true,facing=west,has_board=true": {
+      "model": "uchip:block/casing/enabled",
+      "y": 270
+    }
+  }
+}

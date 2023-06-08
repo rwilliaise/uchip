@@ -22,6 +22,7 @@ public class Microchip
         MicrochipItems.register();
         MicrochipLangPartials.register();
         MicrochipBlocks.register();
+        MicrochipBlockEntities.register();
         MicrochipScreens.register();
     }
 
