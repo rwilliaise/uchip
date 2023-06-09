@@ -2,7 +2,6 @@ package com.alotofletters.uchip.content.machine.casing;
 
 import com.alotofletters.uchip.MicrochipBlockEntities;
 import com.alotofletters.uchip.MicrochipBlockStateProperties;
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;

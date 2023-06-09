@@ -4,6 +4,5 @@
   "block.uchip.chip_builder": "Chip Builder",
   "board.uchip.8bit": "Tier I (8 bit)",
   "item.uchip.processor.effect_board": "When in Board:",
-  "item.uchip.processor_6502": "6502",
-  "itemGroup.uchip.uchip": "Microchips"
+  "item.uchip.processor_6502": "6502"
 }

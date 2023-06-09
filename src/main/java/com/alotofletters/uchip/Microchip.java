@@ -2,10 +2,9 @@ package com.alotofletters.uchip;
 
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import com.tterrag.registrate.Registrate;
-
-import java.util.function.Supplier;
 
 @Mod(Microchip.MOD_ID)
 public class Microchip
@@ -14,7 +13,12 @@ public class Microchip
 
     public static final NonNullSupplier<Registrate> REGISTRATE = NonNullSupplier.lazy(() ->
             Registrate.create(MOD_ID)
-                .creativeModeTab("uchip", (p) -> p.icon(MicrochipItems.PROCESSOR_6502::asStack), "Microchips")
+                    .creativeModeTab(() -> new CreativeModeTab("uchip") {
+                        @Override
+                        public ItemStack makeIcon() {
+                            return MicrochipItems.PROCESSOR_6502.asStack();
+                        }
+                    })
     );
 
     public Microchip()
