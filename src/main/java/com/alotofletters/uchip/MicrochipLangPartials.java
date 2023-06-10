@@ -10,6 +10,12 @@ public class MicrochipLangPartials {
     public static final String PROCESSOR_BOARD_EFFECT =
             addLang("item.uchip.processor.effect_board", "When in Board:");
 
+    public static final String PROCESSOR_BOARD_DATA_WIDTH =
+            addLang("item.uchip.processor.data_width", "Data Width: %s bits");
+
+    public static final String PROCESSOR_BOARD_ADDRESS_WIDTH =
+            addLang("item.uchip.processor.address_width", "Address Width: %s bits");
+
     // processor instruction sets/architectures
     public static final String PROCESSOR_ARCH_6502 =
             addArch("6502", "Arch: MOS 6502");

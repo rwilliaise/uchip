@@ -4,7 +4,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-version = '1.0'
+version = "${microchips_version}"
 group = 'com.alotofletters.uchip'
 archivesBaseName = 'uchip'
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -92,7 +92,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "uchip",
+                "Specification-Title"     : "Microchips",
                 "Specification-Vendor"    : "ALotOfLetters",
                 "Specification-Version"   : "1",
                 "Implementation-Title"    : project.name,

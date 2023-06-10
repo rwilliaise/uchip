@@ -1,5 +1,6 @@
 package com.alotofletters.uchip;
 
+import com.alotofletters.uchip.content.processor.MOS6502Item;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.world.item.Item;
@@ -7,14 +8,16 @@ import net.minecraft.world.item.Rarity;
 
 public class MicrochipItems {
 
-    public static ItemEntry<Item> PROCESSOR_6502;
 
     private static final Registrate REGISTRATE = Microchip.REGISTRATE.get();
 
-    public static void register() {
-        PROCESSOR_6502 = REGISTRATE.item("processor_6502", Item::new)
-                .initialProperties(() -> new Item.Properties().rarity(Rarity.UNCOMMON))
-                .lang("6502")
-                .register();
-    }
+    public static ItemEntry<MOS6502Item> PROCESSOR_6502 = REGISTRATE.item("processor_6502", MOS6502Item::new)
+            .initialProperties(() -> new Item.Properties().rarity(Rarity.UNCOMMON))
+            .lang("MOS 6502")
+            .register();
+
+    public static ItemEntry<Item> SILICON_WAFER = REGISTRATE.item("silicon_wafer", Item::new)
+            .register();
+
+    public static void register() { }
 }

@@ -6,13 +6,13 @@ import net.minecraft.world.item.ItemStack;
 /**
  * Represents an item that interfaces with buses on the board.
  *
- * @see Component
+ * @see BoardComponent
  */
-public abstract class Component {
+public abstract class BoardComponent {
     protected final Board owner;
     protected final ItemStack stack;
 
-    public Component(Board owner, ItemStack stack) {
+    public BoardComponent(Board owner, ItemStack stack) {
         this.owner = owner;
         this.stack = stack;
     }

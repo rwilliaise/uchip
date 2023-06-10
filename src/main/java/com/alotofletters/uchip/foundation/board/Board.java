@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Represents a board BoardObjects can interface with.
  *
- * @see Component
+ * @see BoardComponent
  */
 public abstract class Board {
     protected int data;
@@ -42,7 +42,7 @@ public abstract class Board {
 
     public abstract int getAddressWidth();
 
-    public record RangedComponent(Component component, int from, int to) {
+    public record RangedComponent(BoardComponent component, int from, int to) {
 
         public CompoundTag save(CompoundTag tag) {
             CompoundTag component = new CompoundTag();

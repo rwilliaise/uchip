@@ -3,7 +3,10 @@
   "block.uchip.casing": "Casing",
   "block.uchip.chip_builder": "Chip Builder",
   "board.uchip.8bit": "Tier I (8 bit)",
+  "item.uchip.processor.address_width": "Address Width: %s bits",
+  "item.uchip.processor.data_width": "Data Width: %s bits",
   "item.uchip.processor.effect_board": "When in Board:",
-  "item.uchip.processor_6502": "6502",
+  "item.uchip.processor_6502": "MOS 6502",
+  "item.uchip.silicon_wafer": "Silicon Wafer",
   "itemGroup.uchip": "Microchips"
 }
