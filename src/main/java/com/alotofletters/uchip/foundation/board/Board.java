@@ -3,7 +3,7 @@ package com.alotofletters.uchip.foundation.board;
 /**
  * Represents a board BoardObjects can interface with.
  *
- * @see BoardObject
+ * @see Component
  * @param <D> Data bus type.
  * @param <A> Address space type.
  */
