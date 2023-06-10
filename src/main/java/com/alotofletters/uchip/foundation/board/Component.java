@@ -1,19 +1,25 @@
 package com.alotofletters.uchip.foundation.board;
 
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
+
 /**
  * Represents an item that interfaces with buses on the board.
  *
  * @see Component
- * @param <T> Board type.
  */
-public abstract class Component<T extends Board<?, ?>> {
-    protected final T owner;
+public abstract class Component {
+    protected final Board owner;
+    protected final ItemStack stack;
 
-    public Component(T owner) {
+    public Component(Board owner, ItemStack stack) {
         this.owner = owner;
+        this.stack = stack;
     }
 
-    public T getOwner() {
+    public Board getOwner() {
         return owner;
     }
+
+    public abstract void save(CompoundTag tag);
 }
