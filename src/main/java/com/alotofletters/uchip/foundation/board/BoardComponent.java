@@ -15,11 +15,23 @@ public abstract class BoardComponent {
     public BoardComponent(Board owner, ItemStack stack) {
         this.owner = owner;
         this.stack = stack;
+
+        load(stack.getOrCreateTag());
     }
 
     public Board getOwner() {
         return owner;
     }
 
-    public abstract void save(CompoundTag tag);
+    public ItemStack getStack() {
+        return stack;
+    }
+
+    public abstract int getDataWidth();
+
+    public abstract int getAddressWidth();
+
+    public void save(CompoundTag tag) {}
+
+    public void load(CompoundTag tag) {}
 }

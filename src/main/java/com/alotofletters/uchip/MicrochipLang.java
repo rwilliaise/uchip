@@ -9,14 +9,17 @@ public class MicrochipLang {
 
     private static final Registrate REGISTRATE = Microchip.REGISTRATE.get();
 
-    public static final String PROCESSOR_BOARD_EFFECT =
-            addLang("item.uchip.processor.effect_board", "When in Board:");
+    public static final String BOARD_EFFECT =
+            addLang("item.uchip.board.effect_casing", "When in Board:");
 
-    public static final String PROCESSOR_BOARD_DATA_WIDTH =
-            addLang("item.uchip.processor.data_width", "%s bit Data");
+    public static final String BOARD_COMPONENT_EFFECT =
+            addLang("item.uchip.component.effect_board", "When in Board:");
 
-    public static final String PROCESSOR_BOARD_ADDRESS_WIDTH =
-            addLang("item.uchip.processor.address_width", "%s bit Address");
+    public static final String BOARD_COMPONENT_DATA_WIDTH =
+            addLang("item.uchip.component.data_width", "%s bit Data");
+
+    public static final String BOARD_COMPONENT_ADDRESS_WIDTH =
+            addLang("item.uchip.component.address_width", "%s bit Address");
 
     // processor instruction sets/architectures
     public static final String PROCESSOR_ARCH_6502 =
@@ -24,7 +27,7 @@ public class MicrochipLang {
 
     // board tiers
     public static final String BOARD_8BIT =
-            addBoard("8bit", "Tier I (8 bit)");
+            addBoard("8bit", "(8 bit)");
 
     public static MutableComponent tab() {
         return Component.literal("  ");

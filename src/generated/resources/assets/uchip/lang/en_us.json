@@ -3,6 +3,7 @@
   "block.uchip.casing": "Casing",
   "block.uchip.chip_builder": "Chip Builder",
   "board.uchip.8bit": "Tier I (8 bit)",
+  "item.uchip.board8": "Board",
   "item.uchip.processor.address_width": "%s bit Address",
   "item.uchip.processor.data_width": "%s bit Data",
   "item.uchip.processor.effect_board": "When in Board:",

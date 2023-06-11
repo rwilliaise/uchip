@@ -41,7 +41,12 @@ public abstract class BoardItem extends Item implements MenuProvider {
 
     @Override
     public @NotNull Component getDescription() {
-        return Component.translatable(getDescriptionId()).append(" ").append(this.getTierComponent().withStyle(ChatFormatting.GOLD));
+        return Component.translatable(getDescriptionId()).append(" ").append(this.getTierComponent());
+    }
+
+    @Override
+    public Component getName(ItemStack p_41458_) {
+        return getDescription();
     }
 
     @Override

@@ -1,8 +1,11 @@
 package com.alotofletters.uchip.content.machine.casing;
 
+import com.alotofletters.uchip.content.machine.board.BoardItem;
+import com.alotofletters.uchip.foundation.board.Board;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -15,9 +18,10 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CasingBlockEntity extends BlockEntity {
+public class CasingBlockEntity extends BlockEntity implements Clearable {
     private LazyOptional<IEnergyStorage> energyCapability;
     private ItemStack board = ItemStack.EMPTY;
+    private Board runningBoard;
 
     private EnergyStorage buffer;
 
@@ -31,7 +35,7 @@ public class CasingBlockEntity extends BlockEntity {
     public void load(CompoundTag tag) {
         super.load(tag);
         if (tag.contains("Board")) {
-            board = ItemStack.of(tag.getCompound("BoardItem"));
+            this.setBoard(ItemStack.of(tag.getCompound("BoardItem")));
         }
     }
 
@@ -44,9 +48,21 @@ public class CasingBlockEntity extends BlockEntity {
         }
     }
 
-    public void setBoard(ItemStack board) {
-        this.board = board;
+    @Override
+    public void clearContent() {
+        this.board = ItemStack.EMPTY;
         this.setChanged();
+    }
+
+    public void setBoard(ItemStack board) {
+        if (board.isEmpty() || board.getItem() instanceof BoardItem) {
+            this.board = board;
+            if (!board.isEmpty()) {
+                BoardItem item = (BoardItem) board.getItem();
+                runningBoard = item.createBoard(board);
+            }
+            this.setChanged();
+        }
     }
 
     @Override
