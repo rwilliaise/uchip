@@ -12,6 +12,7 @@ public class MicrochipItems {
     private static final Registrate REGISTRATE = Microchip.REGISTRATE.get();
 
     public static ItemEntry<MOS6502Item> PROCESSOR_6502 = REGISTRATE.item("processor_6502", MOS6502Item::new)
+            .model((ctx, prov) -> {}) // don't generate anything
             .initialProperties(() -> new Item.Properties().rarity(Rarity.UNCOMMON))
             .lang("MOS 6502")
             .register();

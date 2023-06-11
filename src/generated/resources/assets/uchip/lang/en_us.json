@@ -1,10 +1,10 @@
 {
-  "arch.uchip.6502": "Arch: MOS 6502",
+  "arch.uchip.6502": "MOS 6502 ISA",
   "block.uchip.casing": "Casing",
   "block.uchip.chip_builder": "Chip Builder",
   "board.uchip.8bit": "Tier I (8 bit)",
-  "item.uchip.processor.address_width": "Address Width: %s bits",
-  "item.uchip.processor.data_width": "Data Width: %s bits",
+  "item.uchip.processor.address_width": "%s bit Address",
+  "item.uchip.processor.data_width": "%s bit Data",
   "item.uchip.processor.effect_board": "When in Board:",
   "item.uchip.processor_6502": "MOS 6502",
   "item.uchip.silicon_wafer": "Silicon Wafer",

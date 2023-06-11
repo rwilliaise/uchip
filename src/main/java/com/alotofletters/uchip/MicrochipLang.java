@@ -2,8 +2,10 @@ package com.alotofletters.uchip;
 
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.entry.ItemEntry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
-public class MicrochipLangPartials {
+public class MicrochipLang {
 
     private static final Registrate REGISTRATE = Microchip.REGISTRATE.get();
 
@@ -11,18 +13,22 @@ public class MicrochipLangPartials {
             addLang("item.uchip.processor.effect_board", "When in Board:");
 
     public static final String PROCESSOR_BOARD_DATA_WIDTH =
-            addLang("item.uchip.processor.data_width", "Data Width: %s bits");
+            addLang("item.uchip.processor.data_width", "%s bit Data");
 
     public static final String PROCESSOR_BOARD_ADDRESS_WIDTH =
-            addLang("item.uchip.processor.address_width", "Address Width: %s bits");
+            addLang("item.uchip.processor.address_width", "%s bit Address");
 
     // processor instruction sets/architectures
     public static final String PROCESSOR_ARCH_6502 =
-            addArch("6502", "Arch: MOS 6502");
+            addArch("6502", "MOS 6502 ISA");
 
     // board tiers
     public static final String BOARD_8BIT =
             addBoard("8bit", "Tier I (8 bit)");
+
+    public static MutableComponent tab() {
+        return Component.literal("  ");
+    }
 
     private static String addLang(String key, String value) {
         REGISTRATE.addRawLang(key, value);

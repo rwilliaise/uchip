@@ -1,10 +1,10 @@
 {
-  "arch.uchip.6502": "ᄅ0ϛ9 SOW :ɥɔɹⱯ",
+  "arch.uchip.6502": "ⱯSI ᄅ0ϛ9 SOW",
   "block.uchip.casing": "buısɐƆ",
   "block.uchip.chip_builder": "ɹǝpןınᗺ dıɥƆ",
   "board.uchip.8bit": ")ʇıq 8( I ɹǝı⟘",
-  "item.uchip.processor.address_width": "sʇıq %s :ɥʇpıM ssǝɹppⱯ",
-  "item.uchip.processor.data_width": "sʇıq %s :ɥʇpıM ɐʇɐᗡ",
+  "item.uchip.processor.address_width": "ssǝɹppⱯ ʇıq %s",
+  "item.uchip.processor.data_width": "ɐʇɐᗡ ʇıq %s",
   "item.uchip.processor.effect_board": ":pɹɐoᗺ uı uǝɥM",
   "item.uchip.processor_6502": "ᄅ0ϛ9 SOW",
   "item.uchip.silicon_wafer": "ɹǝɟɐM uoɔıןıS",

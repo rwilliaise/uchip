@@ -29,7 +29,7 @@ public class Microchip
     public Microchip()
     {
         MicrochipItems.register();
-        MicrochipLangPartials.register();
+        MicrochipLang.register();
         MicrochipBlocks.register();
         MicrochipBlockEntities.register();
         MicrochipScreens.register();

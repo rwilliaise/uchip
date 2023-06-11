@@ -1,6 +1,6 @@
 package com.alotofletters.uchip.foundation.board;
 
-import com.alotofletters.uchip.MicrochipLangPartials;
+import com.alotofletters.uchip.MicrochipLang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -23,6 +23,6 @@ public abstract class ComponentItem<T extends BoardComponent> extends Item {
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag) {
         list.add(CommonComponents.EMPTY);
-        list.add(Component.translatable(MicrochipLangPartials.PROCESSOR_BOARD_EFFECT).withStyle(ChatFormatting.GRAY));
+        list.add(Component.translatable(MicrochipLang.PROCESSOR_BOARD_EFFECT).withStyle(ChatFormatting.GRAY));
     }
 }
