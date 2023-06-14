@@ -21,7 +21,7 @@ public class MOS6502Item extends ComponentItem<MOS6502Processor> {
 
     @Override
     public MOS6502Processor createComponent(Board board, ItemStack stack) {
-        return null;
+        return new MOS6502Processor(board, stack);
     }
 
     @Override
