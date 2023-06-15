@@ -25,18 +25,18 @@ public abstract class Board {
 
     public Board(ItemStack stack) {
         this.stack = stack;
-        load();
+        load(stack.getOrCreateTag());
     }
 
-    public void save() {
-        CompoundTag tag = stack.getOrCreateTag();
+    public CompoundTag write() {
+        CompoundTag tag = new CompoundTag();
         ListTag components = new ListTag();
         this.components.forEach(component -> components.add(component.save(new CompoundTag())));
         tag.put("Components", components);
+        return tag;
     }
 
-    public void load() {
-        CompoundTag tag = stack.getOrCreateTag();
+    public void load(CompoundTag tag) {
         if (tag.contains("Components")) {
             ListTag components = tag.getList("Components", Tag.TAG_COMPOUND);
             components.forEach((component) -> this.components.add(RangedComponent.load(this, (CompoundTag) component)));

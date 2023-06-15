@@ -13,13 +13,12 @@ import net.minecraft.world.entity.player.Inventory;
 public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
     private static final ResourceLocation BOARD_LOCATION = Microchip.location("textures/gui/container/circuit_board.png");
 
-//    private final EditBox name;
+    private EditBox name;
 
     public BoardScreen(BoardMenu p_97741_, Inventory p_97742_, Component p_97743_) {
         super(p_97741_, p_97742_, p_97743_);
         imageWidth = 177;
         imageHeight = 166;
-//        name = new EditBox();
     }
 
     @Override
@@ -30,5 +29,21 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
         int i = (width - imageWidth) / 2;
         int j = (height - imageHeight) / 2;
         this.blit(pPoseStack, i, j, 0, 0, imageWidth, imageHeight);
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        name = new EditBox(font, 8, 146, 133, 10, Component.empty());
+        name.setTextColor(-1);
+        name.setBordered(false);
+
+        addWidget(name);
+        setInitialFocus(name);
+    }
+
+    @Override
+    public void removed() {
+        super.removed();
     }
 }
