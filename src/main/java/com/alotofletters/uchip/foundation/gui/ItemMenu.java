@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class ItemMenu extends AbstractContainerMenu {
-    protected ItemStack owner;
+    public ItemStack stack;
     protected Inventory playerInventory;
 
     public ItemMenu(@Nullable MenuType<?> type, int p_38852_, Inventory inventory, FriendlyByteBuf buf) {
@@ -23,17 +23,12 @@ public abstract class ItemMenu extends AbstractContainerMenu {
     }
 
     protected void initialize(Inventory inventory, ItemStack owner) {
-        this.owner = owner;
+        this.stack = owner;
         this.playerInventory = inventory;
     }
 
     @Override
-    public ItemStack quickMoveStack(Player p_38941_, int p_38942_) {
-        return null;
-    }
-
-    @Override
     public boolean stillValid(Player p_38874_) {
-        return false;
+        return true;
     }
 }
