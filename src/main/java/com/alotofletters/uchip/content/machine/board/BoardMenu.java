@@ -21,7 +21,8 @@ public class BoardMenu extends ItemMenu {
 
     @Override
     public ItemStack quickMoveStack(Player p_38941_, int p_38942_) {
-        return null;
+        return ItemStack.EMPTY;
     }
+
 
 }

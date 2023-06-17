@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 
 public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
@@ -15,10 +16,13 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
 
     private EditBox name;
 
-    public BoardScreen(BoardMenu p_97741_, Inventory p_97742_, Component p_97743_) {
-        super(p_97741_, p_97742_, p_97743_);
+    public BoardScreen(BoardMenu p_97741_, Inventory p_97742_, Component title) {
+        super(p_97741_, p_97742_, title);
         imageWidth = 177;
         imageHeight = 166;
+        titleLabelY = 4;
+        FormattedCharSequence sequence = title.getVisualOrderText();
+        titleLabelX = (leftPos + imageWidth / 2) - font.width(sequence) / 2;
     }
 
     @Override
@@ -29,6 +33,12 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
         int i = (width - imageWidth) / 2;
         int j = (height - imageHeight) / 2;
         this.blit(pPoseStack, i, j, 0, 0, imageWidth, imageHeight);
+    }
+
+    @Override
+    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+        RenderSystem.disableBlend();
+        super.renderLabels(pPoseStack, pMouseX, pMouseY);
     }
 
     @Override

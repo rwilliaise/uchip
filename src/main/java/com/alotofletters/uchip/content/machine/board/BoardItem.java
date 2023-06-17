@@ -2,7 +2,6 @@ package com.alotofletters.uchip.content.machine.board;
 
 import com.alotofletters.uchip.MicrochipScreens;
 import com.alotofletters.uchip.foundation.board.Board;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
