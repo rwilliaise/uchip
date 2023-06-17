@@ -11,8 +11,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class BoardMenu extends ItemMenu {
 
-    public BoardMenu(@Nullable MenuType<?> type, int p_38852_, Inventory inventory, FriendlyByteBuf buf) {
+    public BoardMenu(@Nullable MenuType<?> type, int p_38852_, Inventory inventory, @Nullable FriendlyByteBuf buf) {
         super(type, p_38852_, inventory, buf);
+    }
+
+    public BoardMenu(@Nullable MenuType<?> type, int p_38852_, Inventory inventory, ItemStack stack) {
+        super(type, p_38852_, inventory, stack);
     }
 
     @Override

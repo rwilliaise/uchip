@@ -57,6 +57,6 @@ public abstract class BoardItem extends Item implements MenuProvider {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int p_39954_, Inventory p_39955_, Player p_39956_) {
-        return MicrochipScreens.BOARD.create(p_39954_, p_39955_);
+        return new BoardMenu(MicrochipScreens.BOARD.get(), p_39954_, p_39955_, p_39956_.getMainHandItem());
     }
 }
