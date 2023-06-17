@@ -7,7 +7,7 @@ import com.alotofletters.uchip.content.machine.chip_builder.ChipBuilderScreen;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.entry.MenuEntry;
 
-public class MicrochipScreens {
+public class MicrochipMenuTypes {
 
     private static final Registrate REGISTRATE = Microchip.REGISTRATE.get();
 

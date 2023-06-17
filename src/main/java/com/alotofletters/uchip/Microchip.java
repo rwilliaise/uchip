@@ -32,7 +32,7 @@ public class Microchip
         MicrochipLang.register();
         MicrochipBlocks.register();
         MicrochipBlockEntities.register();
-        MicrochipScreens.register();
+        MicrochipMenuTypes.register();
     }
 
     public static ResourceLocation location(String name) {

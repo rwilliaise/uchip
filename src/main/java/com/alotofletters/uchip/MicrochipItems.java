@@ -30,6 +30,9 @@ public class MicrochipItems {
     public static ItemEntry<Item> SILICON_WAFER = REGISTRATE.item("silicon_wafer", Item::new)
             .register();
 
+    public static ItemEntry<Item> PLASTIC = REGISTRATE.item("plastic", Item::new)
+            .register();
+
     private static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, RegistrateItemModelProvider> empty() {
         return (ctx, prov) -> {}; // no model generation
     }

@@ -1,6 +1,6 @@
 package com.alotofletters.uchip.content.machine.board;
 
-import com.alotofletters.uchip.MicrochipScreens;
+import com.alotofletters.uchip.MicrochipMenuTypes;
 import com.alotofletters.uchip.foundation.board.Board;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -29,13 +29,16 @@ public abstract class BoardItem extends Item implements MenuProvider {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack heldItem = player.getItemInHand(hand);
+
         if (!player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
             if (!level.isClientSide && player instanceof ServerPlayer serverPlayer)
                 NetworkHooks.openScreen(serverPlayer, this, buf -> {
                     buf.writeItem(player.getItemInHand(hand));
                 });
+            return InteractionResultHolder.success(heldItem);
         }
-        return super.use(level, player, hand);
+        return InteractionResultHolder.pass(heldItem);
     }
 
     @Override
@@ -56,6 +59,6 @@ public abstract class BoardItem extends Item implements MenuProvider {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int p_39954_, Inventory p_39955_, Player p_39956_) {
-        return new BoardMenu(MicrochipScreens.BOARD.get(), p_39954_, p_39955_, p_39956_.getMainHandItem());
+        return new BoardMenu(MicrochipMenuTypes.BOARD.get(), p_39954_, p_39955_, p_39956_.getMainHandItem());
     }
 }
