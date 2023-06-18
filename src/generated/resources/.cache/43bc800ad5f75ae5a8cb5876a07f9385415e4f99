@@ -1,8 +1,8 @@
-// 1.19.2	2023-06-11T23:06:23.546901517	Registrate Provider for uchip [Recipes, Advancements, Loot tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.19.2	2023-06-17T21:03:36.290886162	Registrate Provider for uchip [Recipes, Advancements, Loot tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 dbbc57ae7dea3fb4bb7b8f8fd2d079391c86c745 assets/uchip/blockstates/casing.json
 bdae14ae021787bb2b28d72e36035166c9110640 assets/uchip/blockstates/chip_builder.json
-56660a3c36529eb629998659e57c5c74fc4b93ab assets/uchip/lang/en_ud.json
-0a8fa3982b86d41c8e284540d71694d1a722d98b assets/uchip/lang/en_us.json
+668f54ccb6771d8858797c644e138a3f50264c1d assets/uchip/lang/en_ud.json
+d228e6829c27e40526c4130e74a915c9903ab3b1 assets/uchip/lang/en_us.json
 1d77b5969674da0287f434d1159dec9bc0cc2355 assets/uchip/models/block/chip_builder.json
 79f784d8d29abfd69a775effdd9669e44129d37c assets/uchip/models/item/casing.json
 d9c56e1e7b60ec3ec634a98d858a1628bc2d4733 assets/uchip/models/item/chip_builder.json

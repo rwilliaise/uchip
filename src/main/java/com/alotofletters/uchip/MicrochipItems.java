@@ -24,13 +24,10 @@ public class MicrochipItems {
     public static ItemEntry<Board8Item> BOARD8 = REGISTRATE.item("board8", Board8Item::new)
             .model(empty())
             .initialProperties(() -> new Item.Properties().rarity(Rarity.UNCOMMON))
-            .lang("Board")
+            .lang("8-bit Board")
             .register();
 
     public static ItemEntry<Item> SILICON_WAFER = REGISTRATE.item("silicon_wafer", Item::new)
-            .register();
-
-    public static ItemEntry<Item> PLASTIC = REGISTRATE.item("plastic", Item::new)
             .register();
 
     private static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, RegistrateItemModelProvider> empty() {

@@ -25,30 +25,16 @@ public abstract class BoardItem extends Item implements MenuProvider {
 
     public abstract Board createBoard(ItemStack stack);
 
-    public abstract MutableComponent getTierComponent();
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
 
         if (!player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
             if (!level.isClientSide && player instanceof ServerPlayer serverPlayer)
-                NetworkHooks.openScreen(serverPlayer, this, buf -> {
-                    buf.writeItem(player.getItemInHand(hand));
-                });
+                NetworkHooks.openScreen(serverPlayer, this, buf -> buf.writeItem(player.getItemInHand(hand)));
             return InteractionResultHolder.success(heldItem);
         }
         return InteractionResultHolder.pass(heldItem);
-    }
-
-    @Override
-    public @NotNull Component getDescription() {
-        return Component.translatable(getDescriptionId()).append(" ").append(this.getTierComponent());
-    }
-
-    @Override
-    public Component getName(ItemStack p_41458_) {
-        return getDescription();
     }
 
     @Override
