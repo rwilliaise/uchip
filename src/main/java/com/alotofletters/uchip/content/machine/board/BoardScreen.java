@@ -22,6 +22,11 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
 
     public BoardScreen(BoardMenu p_97741_, Inventory p_97742_, Component title) {
         super(p_97741_, p_97742_, title);
+        imageWidth = 177;
+        imageHeight = 253;
+        titleLabelY = 4;
+        FormattedCharSequence sequence = title.getVisualOrderText();
+        titleLabelX = imageWidth / 2 - font.width(sequence) / 2;
     }
 
     @Override
@@ -64,12 +69,7 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
     @Override
     protected void init() {
         super.init();
-        this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
-        imageWidth = 177;
-        imageHeight = 166;
-        titleLabelY = 4;
-        FormattedCharSequence sequence = title.getVisualOrderText();
-        titleLabelX = imageWidth / 2 - font.width(sequence) / 2;
+        minecraft.keyboardHandler.setSendRepeatsToGui(true);
 
         name = new EditBox(font, leftPos + 9, topPos + 147, 131, 10, Component.translatable(MicrochipLang.BOARD_NAME));
         name.setCanLoseFocus(false);
@@ -85,7 +85,7 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
 
     public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
         if (pKeyCode == InputConstants.KEY_ESCAPE) {
-            this.minecraft.player.closeContainer();
+            minecraft.player.closeContainer();
         }
 
         return this.name.keyPressed(pKeyCode, pScanCode, pModifiers) || this.name.canConsumeInput() || super.keyPressed(pKeyCode, pScanCode, pModifiers);
@@ -94,6 +94,6 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
     @Override
     public void removed() {
         super.removed();
-        this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
+        minecraft.keyboardHandler.setSendRepeatsToGui(false);
     }
 }
