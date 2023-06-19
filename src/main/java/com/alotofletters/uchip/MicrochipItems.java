@@ -25,6 +25,7 @@ public class MicrochipItems {
             .model(empty())
             .initialProperties(() -> new Item.Properties().rarity(Rarity.UNCOMMON))
             .lang("8-bit Board")
+            .tag(MicrochipTags.BOARD)
             .register();
 
     public static ItemEntry<Item> SILICON_WAFER = REGISTRATE.item("silicon_wafer", Item::new)

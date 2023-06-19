@@ -55,7 +55,7 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
     }
 
     public void setBoard(ItemStack board) {
-        if (board.isEmpty() || board.getItem() instanceof BoardItem) {
+        if (!board.isEmpty() || board.getItem() instanceof BoardItem) {
             this.board = board;
             if (!board.isEmpty()) {
                 BoardItem item = (BoardItem) board.getItem();

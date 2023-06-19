@@ -3,6 +3,7 @@ package com.alotofletters.uchip.content.machine.casing;
 import com.alotofletters.uchip.MicrochipBlockEntities;
 import com.alotofletters.uchip.MicrochipBlockStateProperties;
 import com.alotofletters.uchip.MicrochipItems;
+import com.alotofletters.uchip.MicrochipTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -51,7 +52,7 @@ public class CasingBlock extends HorizontalDirectionalBlock implements EntityBlo
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (player.getItemInHand(hand).is(MicrochipItems.PROCESSOR_6502.get())) {
+        if (player.getItemInHand(hand).is(MicrochipTags.BOARD)) {
 
         }
         return InteractionResult.PASS;
