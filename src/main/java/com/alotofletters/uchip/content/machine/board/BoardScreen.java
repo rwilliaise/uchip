@@ -18,37 +18,23 @@ import net.minecraft.world.entity.player.Inventory;
 public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
     private static final ResourceLocation BOARD_LOCATION = Microchip.location("textures/gui/container/circuit_board.png");
 
-    private EditBox name;
 
     public BoardScreen(BoardMenu p_97741_, Inventory p_97742_, Component title) {
         super(p_97741_, p_97742_, title);
         imageWidth = 177;
-        imageHeight = 253;
+        imageHeight = 235;
         titleLabelY = 4;
         FormattedCharSequence sequence = title.getVisualOrderText();
         titleLabelX = imageWidth / 2 - font.width(sequence) / 2;
+
     }
 
-    @Override
-    protected void containerTick() {
-        super.containerTick();
-        this.name.tick();
-    }
-
-    @Override
-    public void resize(Minecraft pMinecraft, int pWidth, int pHeight) {
-        String s = this.name.getValue();
-        this.init(pMinecraft, pWidth, pHeight);
-        this.name.setValue(s);
-    }
 
     @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         pPartialTick = minecraft.getFrameTime();
         renderBackground(pPoseStack);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
-        RenderSystem.disableBlend();
-        name.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
         renderTooltip(pPoseStack, pMouseX, pMouseY);
     }
 
@@ -60,40 +46,4 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
         this.blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
-    @Override
-    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        RenderSystem.disableBlend();
-        super.renderLabels(pPoseStack, pMouseX, pMouseY);
-    }
-
-    @Override
-    protected void init() {
-        super.init();
-        minecraft.keyboardHandler.setSendRepeatsToGui(true);
-
-        name = new EditBox(font, leftPos + 9, topPos + 147, 131, 10, Component.translatable(MicrochipLang.BOARD_NAME));
-        name.setCanLoseFocus(false);
-        name.setTextColor(-1);
-        name.setTextColorUneditable(-1);
-        name.setBordered(false);
-        name.setMaxLength(50);
-        name.setValue(menu.stack.getHoverName().getString());
-
-        addWidget(name);
-        name.setEditable(true);
-    }
-
-    public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
-        if (pKeyCode == InputConstants.KEY_ESCAPE) {
-            minecraft.player.closeContainer();
-        }
-
-        return this.name.keyPressed(pKeyCode, pScanCode, pModifiers) || this.name.canConsumeInput() || super.keyPressed(pKeyCode, pScanCode, pModifiers);
-    }
-
-    @Override
-    public void removed() {
-        super.removed();
-        minecraft.keyboardHandler.setSendRepeatsToGui(false);
-    }
 }

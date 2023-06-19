@@ -23,7 +23,7 @@ public class MicrochipItems {
 
     public static ItemEntry<Board8Item> BOARD8 = REGISTRATE.item("board8", Board8Item::new)
             .model(empty())
-            .initialProperties(() -> new Item.Properties().rarity(Rarity.UNCOMMON))
+            .initialProperties(() -> new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1))
             .lang("8-bit Board")
             .tag(MicrochipTags.BOARD)
             .register();

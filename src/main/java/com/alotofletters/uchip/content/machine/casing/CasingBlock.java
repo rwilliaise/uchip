@@ -1,13 +1,12 @@
 package com.alotofletters.uchip.content.machine.casing;
 
 import com.alotofletters.uchip.MicrochipBlockEntities;
-import com.alotofletters.uchip.MicrochipBlockStateProperties;
-import com.alotofletters.uchip.MicrochipItems;
-import com.alotofletters.uchip.MicrochipTags;
+import com.alotofletters.uchip.content.machine.board.BoardItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -25,8 +24,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 public class CasingBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final BooleanProperty HAS_BOARD = MicrochipBlockStateProperties.HAS_BOARD;
+    public static final BooleanProperty HAS_BOARD = BooleanProperty.create("has_board");
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 
     private static final VoxelShape X_AXIS_AABB = Block.box(0, 0, 4, 16, 16, 12);
@@ -52,8 +53,17 @@ public class CasingBlock extends HorizontalDirectionalBlock implements EntityBlo
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (player.getItemInHand(hand).is(MicrochipTags.BOARD)) {
-
+        if ((player.getItemInHand(hand).isEmpty() || player.getItemInHand(hand).getItem() instanceof BoardItem) && !level.isClientSide) {
+            Optional<CasingBlockEntity> optional = level.getBlockEntity(pos, MicrochipBlockEntities.CASING.get());
+            if (optional.isPresent()) {
+                CasingBlockEntity entity = optional.get();
+                if (!entity.getBoard().isEmpty()) {
+                    level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), entity.getBoard()));
+                }
+                entity.setBoard(player.getItemInHand(hand).copy());
+                player.getItemInHand(hand).setCount(0);
+                return InteractionResult.CONSUME;
+            }
         }
         return InteractionResult.PASS;
     }
