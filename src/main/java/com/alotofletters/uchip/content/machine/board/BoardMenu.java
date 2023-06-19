@@ -1,5 +1,6 @@
 package com.alotofletters.uchip.content.machine.board;
 
+import com.alotofletters.uchip.foundation.board.Board;
 import com.alotofletters.uchip.foundation.gui.ItemMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -24,12 +25,12 @@ public class BoardMenu extends ItemMenu {
         super.initialize(inventory, owner);
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 171 + i * 18));
+                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 153 + i * 18));
             }
         }
 
         for(int k = 0; k < 9; ++k) {
-            this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 229));
+            this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 211));
         }
     }
 
@@ -44,5 +45,10 @@ public class BoardMenu extends ItemMenu {
         return ItemStack.EMPTY;
     }
 
-
+    public Board createBoard() {
+        if (stack.getItem() instanceof BoardItem boardItem) {
+            return boardItem.createBoard(stack);
+        }
+        return null;
+    }
 }

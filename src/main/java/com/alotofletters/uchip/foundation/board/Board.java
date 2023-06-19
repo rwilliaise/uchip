@@ -28,12 +28,10 @@ public abstract class Board {
         load(stack.getOrCreateTag());
     }
 
-    public CompoundTag write() {
-        CompoundTag tag = new CompoundTag();
+    public void save(CompoundTag tag) {
         ListTag components = new ListTag();
         this.components.forEach(component -> components.add(component.save(new CompoundTag())));
         tag.put("Components", components);
-        return tag;
     }
 
     public void load(CompoundTag tag) {
