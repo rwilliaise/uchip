@@ -12,6 +12,9 @@ public class MicrochipLang {
     public static final String BOARD_EFFECT =
             addLang("item.uchip.board.effect_casing", "When in Board:");
 
+    public static final String BOARD_NAME =
+            addLang("item.uchip.board.edit_name", "Board Name");
+
     public static final String BOARD_COMPONENT_EFFECT =
             addLang("item.uchip.component.effect_board", "When in Board:");
 
@@ -24,10 +27,6 @@ public class MicrochipLang {
     // processor instruction sets/architectures
     public static final String PROCESSOR_ARCH_6502 =
             addArch("6502", "MOS 6502 ISA");
-
-    // board tiers
-    public static final String BOARD_8BIT =
-            addBoard("8bit", "(8 bit)");
 
     public static MutableComponent tab() {
         return Component.literal("  ");

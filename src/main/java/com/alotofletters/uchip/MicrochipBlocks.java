@@ -30,7 +30,7 @@ public class MicrochipBlocks {
             .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.get(), state -> {
                 if (state.getValue(BlockStateProperties.ENABLED))
                     return existingModel(prov, "block/casing/enabled");
-                else if (state.getValue(MicrochipBlockStateProperties.HAS_BOARD))
+                else if (state.getValue(CasingBlock.HAS_BOARD))
                     return existingModel(prov, "block/casing/board");
                 return existingModel(prov, "block/casing/empty");
             }))

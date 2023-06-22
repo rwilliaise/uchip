@@ -5,9 +5,11 @@ import com.alotofletters.uchip.content.processor.MOS6502Item;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateItemModelProvider;
+import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 
 public class MicrochipItems {
@@ -23,10 +25,13 @@ public class MicrochipItems {
 
     public static ItemEntry<Board8Item> BOARD8 = REGISTRATE.item("board8", Board8Item::new)
             .model(empty())
-            .lang("Board")
+            .initialProperties(() -> new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1))
+            .lang("8-bit Board")
+            .tag(MicrochipTags.BOARD)
             .register();
 
     public static ItemEntry<Item> SILICON_WAFER = REGISTRATE.item("silicon_wafer", Item::new)
+            .recipe((ctx, prov) -> prov.blasting(DataIngredient.items(Items.QUARTZ), ctx, 0.1f))
             .register();
 
     private static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, RegistrateItemModelProvider> empty() {

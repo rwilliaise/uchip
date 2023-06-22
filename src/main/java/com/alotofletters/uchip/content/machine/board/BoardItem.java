@@ -1,8 +1,7 @@
 package com.alotofletters.uchip.content.machine.board;
 
-import com.alotofletters.uchip.MicrochipScreens;
+import com.alotofletters.uchip.MicrochipMenuTypes;
 import com.alotofletters.uchip.foundation.board.Board;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,27 +25,16 @@ public abstract class BoardItem extends Item implements MenuProvider {
 
     public abstract Board createBoard(ItemStack stack);
 
-    public abstract MutableComponent getTierComponent();
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack heldItem = player.getItemInHand(hand);
+
         if (!player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
             if (!level.isClientSide && player instanceof ServerPlayer serverPlayer)
-                NetworkHooks.openScreen(serverPlayer, this, buf -> {
-                    buf.writeItem(player.getItemInHand(hand));
-                });
+                NetworkHooks.openScreen(serverPlayer, this, buf -> buf.writeItem(player.getItemInHand(hand)));
+            return InteractionResultHolder.success(heldItem);
         }
-        return super.use(level, player, hand);
-    }
-
-    @Override
-    public @NotNull Component getDescription() {
-        return Component.translatable(getDescriptionId()).append(" ").append(this.getTierComponent());
-    }
-
-    @Override
-    public Component getName(ItemStack p_41458_) {
-        return getDescription();
+        return InteractionResultHolder.pass(heldItem);
     }
 
     @Override
@@ -57,6 +45,6 @@ public abstract class BoardItem extends Item implements MenuProvider {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int p_39954_, Inventory p_39955_, Player p_39956_) {
-        return MicrochipScreens.BOARD.create(p_39954_, p_39955_);
+        return new BoardMenu(MicrochipMenuTypes.BOARD.get(), p_39954_, p_39955_, p_39956_.getMainHandItem());
     }
 }
