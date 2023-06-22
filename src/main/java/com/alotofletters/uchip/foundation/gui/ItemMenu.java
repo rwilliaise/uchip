@@ -6,10 +6,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.ItemStackHandler;
 
 public abstract class ItemMenu extends AbstractContainerMenu {
     public ItemStack stack;
     protected Inventory playerInventory;
+
+    protected ItemStackHandler itemInventory;
 
     public ItemMenu(MenuType<?> type, int p_38852_, Inventory inventory, FriendlyByteBuf buf) {
         super(type, p_38852_);
@@ -21,9 +24,12 @@ public abstract class ItemMenu extends AbstractContainerMenu {
         initialize(inventory, item);
     }
 
+    protected abstract ItemStackHandler createItemInventory();
+
     protected void initialize(Inventory inventory, ItemStack owner) {
         this.stack = owner;
         this.playerInventory = inventory;
+        this.itemInventory = createItemInventory();
     }
 
     @Override

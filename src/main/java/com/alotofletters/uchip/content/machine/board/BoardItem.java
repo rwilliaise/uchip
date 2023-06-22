@@ -3,7 +3,6 @@ package com.alotofletters.uchip.content.machine.board;
 import com.alotofletters.uchip.MicrochipMenuTypes;
 import com.alotofletters.uchip.foundation.board.Board;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;

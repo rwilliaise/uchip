@@ -9,6 +9,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class BoardMenu extends ItemMenu {
 
@@ -18,6 +19,11 @@ public class BoardMenu extends ItemMenu {
 
     public BoardMenu(MenuType<?> type, int p_38852_, Inventory inventory, ItemStack stack) {
         super(type, p_38852_, inventory, stack);
+    }
+
+    @Override
+    protected ItemStackHandler createItemInventory() {
+        return new ItemStackHandler(4);
     }
 
     @Override
@@ -42,7 +48,10 @@ public class BoardMenu extends ItemMenu {
 
     @Override
     public ItemStack quickMoveStack(Player p_38941_, int p_38942_) {
-        return ItemStack.EMPTY;
+        ItemStack out = ItemStack.EMPTY;
+
+
+        return out;
     }
 
     public Board createBoard() {
