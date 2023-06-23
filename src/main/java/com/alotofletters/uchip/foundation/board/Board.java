@@ -48,7 +48,7 @@ public abstract class Board {
             this.processor = processor;
             return true;
         }
-        components.add(new RangedComponent(component, 0, (int) Math.pow(2, component.getAddressWidth())));
+        components.add(new RangedComponent(component, 0, (int) Math.pow(2, component.getAddressSpace())));
         return true;
     }
 

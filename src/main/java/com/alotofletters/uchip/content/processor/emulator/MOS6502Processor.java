@@ -32,7 +32,7 @@ public class MOS6502Processor extends Processor {
     }
 
     @Override
-    public int getAddressWidth() {
-        return 16;
+    public int getAddressSpace() {
+		return 65536;
     }
 }

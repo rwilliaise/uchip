@@ -1,8 +1,10 @@
 package com.alotofletters.uchip;
 
 import com.alotofletters.uchip.content.machine.board.Board8Item;
+import com.alotofletters.uchip.content.memory.ram.RamItem;
 import com.alotofletters.uchip.content.processor.MOS6502Item;
 import com.tterrag.registrate.Registrate;
+import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateItemModelProvider;
 import com.tterrag.registrate.util.DataIngredient;
@@ -30,6 +32,9 @@ public class MicrochipItems {
             .tag(MicrochipTags.BOARD)
             .register();
 
+	public static ItemEntry<RamItem> RAM_32K = ram("ram_32k", 8, 32_000)
+		.register();
+
     public static ItemEntry<Item> SILICON_WAFER = REGISTRATE.item("silicon_wafer", Item::new)
             .recipe((ctx, prov) -> prov.blasting(DataIngredient.items(Items.QUARTZ), ctx, 0.1f))
             .register();
@@ -37,6 +42,10 @@ public class MicrochipItems {
     private static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, RegistrateItemModelProvider> empty() {
         return (ctx, prov) -> {}; // no model generation
     }
+
+	private static ItemBuilder<RamItem, Registrate> ram(String name, int dataSize, int size) { 
+		return REGISTRATE.item(name, (props) -> new RamItem(props, dataSize, size));
+	}
 
     public static void register() { }
 }

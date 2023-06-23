@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 public abstract class Processor extends BoardComponent {
     public Processor(Board owner, ItemStack stack) {
         super(owner, stack);
-        assert Math.pow(2, getAddressWidth()) == getPageSize() * getPages();
+        assert Math.pow(2, getAddressSpace()) == getPageSize() * getPages();
     }
 
     public abstract boolean clock();

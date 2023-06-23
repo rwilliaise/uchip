@@ -29,7 +29,7 @@ public abstract class BoardComponent {
 
     public abstract int getDataWidth();
 
-    public abstract int getAddressWidth();
+    public abstract int getAddressSpace();
 
     public void save(CompoundTag tag) {}
 
