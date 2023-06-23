@@ -27,11 +27,19 @@ public abstract class BoardComponent {
         return stack;
     }
 
-    public abstract int getDataWidth();
+    public int read(int address) {
+        return 0;
+    }
 
+    public void write(int address, int value) {}
+
+    public int getDataMask() {
+        return (int) Math.pow(2, getDataWidth()) - 1;
+    }
+
+    public abstract int getDataWidth();
     public abstract int getAddressSpace();
 
     public void save(CompoundTag tag) {}
-
     public void load(CompoundTag tag) {}
 }

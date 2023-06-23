@@ -52,6 +52,10 @@ public abstract class Board {
         return true;
     }
 
+    public boolean isLittleEndian() {
+
+    }
+
     public abstract int getDataWidth();
 
     public abstract int getAddressWidth();

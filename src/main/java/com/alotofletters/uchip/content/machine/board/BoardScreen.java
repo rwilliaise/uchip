@@ -22,7 +22,6 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
 
     private final Board board;
 
-
     public BoardScreen(BoardMenu menu, Inventory p_97742_, Component title) {
         super(menu, p_97742_, title);
         board = menu.createBoard();

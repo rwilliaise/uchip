@@ -4,8 +4,11 @@ import com.alotofletters.uchip.foundation.board.Board;
 import net.minecraft.world.item.ItemStack;
 
 public class MOS6502Processor extends Processor {
-    private byte accumulator, y, x, programCounter, stackPointer;
+    private byte accumulator, y, x, stackPointer;
     private boolean negative, overflow, brk, decimal, irq, zero, carry;
+    private short programCounter;
+
+    private byte cycle;
 
     public MOS6502Processor(Board owner, ItemStack stack) {
         super(owner, stack);
@@ -13,6 +16,14 @@ public class MOS6502Processor extends Processor {
 
     @Override
     public boolean clock() {
+        // RESET initialization sequence
+        switch (cycle++) {
+        case 0:
+            
+            return true;
+        default:
+            break;
+        }
         return false;
     }
 
