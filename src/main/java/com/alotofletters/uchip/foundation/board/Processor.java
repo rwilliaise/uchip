@@ -1,7 +1,5 @@
-package com.alotofletters.uchip.content.processor.emulator;
+package com.alotofletters.uchip.foundation.board;
 
-import com.alotofletters.uchip.foundation.board.Board;
-import com.alotofletters.uchip.foundation.board.BoardComponent;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 

@@ -1,6 +1,5 @@
 package com.alotofletters.uchip.foundation.board;
 
-import com.alotofletters.uchip.content.processor.emulator.Processor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -18,15 +17,19 @@ public abstract class Board {
     protected int data;
     protected int address;
 
-    protected ItemStack stack;
+    protected ItemStack stack = ItemStack.EMPTY;
     protected ArrayList<RangedComponent> components = Lists.newArrayList();
 
     protected Processor processor;
 
     public Board(ItemStack stack) {
+		this(stack.getOrCreateTag());
         this.stack = stack;
-        load(stack.getOrCreateTag());
     }
+
+	public Board(CompoundTag tag) {
+		load(tag);
+	}
 
     public void save(CompoundTag tag) {
         ListTag components = new ListTag();
@@ -53,7 +56,7 @@ public abstract class Board {
     }
 
     public boolean isLittleEndian() {
-
+		return true; // TODO
     }
 
     public abstract int getDataWidth();

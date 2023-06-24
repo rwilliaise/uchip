@@ -1,7 +1,6 @@
-package com.alotofletters.uchip.content.processor;
+package com.alotofletters.uchip.content.board.processor;
 
 import com.alotofletters.uchip.MicrochipLang;
-import com.alotofletters.uchip.content.processor.emulator.MOS6502Processor;
 import com.alotofletters.uchip.foundation.board.Board;
 import com.alotofletters.uchip.foundation.board.ComponentItem;
 import net.minecraft.ChatFormatting;

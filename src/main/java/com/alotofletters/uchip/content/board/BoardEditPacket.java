@@ -15,10 +15,10 @@ public class BoardEditPacket extends MicrochipPacket {
 
     public BoardEditPacket(FriendlyByteBuf buf) {
         name = buf.readUtf();
-        board = .readNbt();
+		// TODO: board = ?
     }
 
-    public BoardEditPacket(String name, CompoundTag board) {
+    public BoardEditPacket(String name, Board board) {
         this.name = name;
         this.board = board;
     }
@@ -26,7 +26,9 @@ public class BoardEditPacket extends MicrochipPacket {
     @Override
     public void encode(FriendlyByteBuf buf) {
         buf.writeUtf(name);
-        buf.writeNbt(board);
+		CompoundTag out = new CompoundTag();
+		board.save(out);
+        buf.writeNbt(out);
     }
 
     @Override
@@ -35,7 +37,9 @@ public class BoardEditPacket extends MicrochipPacket {
             ServerPlayer player = context.getSender(); 
             ItemStack stack = player.getMainHandItem();
             if (!(stack.getItem() instanceof BoardItem)) return;
-            stack.setTag(this.board);
+			CompoundTag out = new CompoundTag();
+			board.save(out);
+            stack.setTag(out);
         });
         return true;
     }

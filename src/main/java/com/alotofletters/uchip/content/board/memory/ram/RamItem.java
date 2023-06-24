@@ -1,4 +1,4 @@
-package com.alotofletters.uchip.content.memory.ram;
+package com.alotofletters.uchip.content.board.memory.ram;
 
 import com.alotofletters.uchip.foundation.board.Board;
 import com.alotofletters.uchip.foundation.board.ComponentItem;

@@ -1,4 +1,4 @@
-package com.alotofletters.uchip.content.machine.board;
+package com.alotofletters.uchip.content.board;
 
 import com.alotofletters.uchip.foundation.board.Board;
 import com.alotofletters.uchip.foundation.board.Board8;

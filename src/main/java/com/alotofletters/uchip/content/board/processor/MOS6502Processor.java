@@ -1,6 +1,8 @@
-package com.alotofletters.uchip.content.processor.emulator;
+package com.alotofletters.uchip.content.board.processor;
 
 import com.alotofletters.uchip.foundation.board.Board;
+import com.alotofletters.uchip.foundation.board.Processor;
+
 import net.minecraft.world.item.ItemStack;
 
 public class MOS6502Processor extends Processor {

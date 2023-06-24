@@ -1,7 +1,7 @@
 package com.alotofletters.uchip;
 
-import com.alotofletters.uchip.content.machine.board.BoardMenu;
-import com.alotofletters.uchip.content.machine.board.BoardScreen;
+import com.alotofletters.uchip.content.board.BoardMenu;
+import com.alotofletters.uchip.content.board.BoardScreen;
 import com.alotofletters.uchip.content.machine.chip_builder.ChipBuilderMenu;
 import com.alotofletters.uchip.content.machine.chip_builder.ChipBuilderScreen;
 import com.tterrag.registrate.Registrate;
