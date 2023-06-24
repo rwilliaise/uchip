@@ -1,6 +1,6 @@
 package com.alotofletters.uchip.content.machine.casing;
 
-import com.alotofletters.uchip.content.machine.board.BoardItem;
+import com.alotofletters.uchip.content.board.BoardItem;
 import com.alotofletters.uchip.foundation.board.Board;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

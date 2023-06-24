@@ -1,7 +1,8 @@
 package com.alotofletters.uchip.content.machine.casing;
 
 import com.alotofletters.uchip.MicrochipBlockEntities;
-import com.alotofletters.uchip.content.machine.board.BoardItem;
+import com.alotofletters.uchip.content.board.BoardItem;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;

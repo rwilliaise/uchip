@@ -1,8 +1,8 @@
 package com.alotofletters.uchip;
 
-import com.alotofletters.uchip.content.machine.board.Board8Item;
-import com.alotofletters.uchip.content.memory.ram.RamItem;
-import com.alotofletters.uchip.content.processor.MOS6502Item;
+import com.alotofletters.uchip.content.board.Board8Item;
+import com.alotofletters.uchip.content.board.memory.ram.RamItem;
+import com.alotofletters.uchip.content.board.processor.MOS6502Item;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
@@ -32,7 +32,7 @@ public class MicrochipItems {
             .tag(MicrochipTags.BOARD)
             .register();
 
-	public static ItemEntry<RamItem> RAM_32K = ram("ram_32k", 8, 32_000)
+	public static ItemEntry<RamItem> RAM_32K = ram("ram_32k", 8, 32_768)
 		.register();
 
     public static ItemEntry<Item> SILICON_WAFER = REGISTRATE.item("silicon_wafer", Item::new)
