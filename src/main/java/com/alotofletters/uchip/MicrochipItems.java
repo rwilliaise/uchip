@@ -4,6 +4,7 @@ import com.alotofletters.uchip.content.board.BoardItem;
 import com.alotofletters.uchip.content.board.memory.ram.RamItem;
 import com.alotofletters.uchip.content.board.memory.ram.RamType;
 import com.alotofletters.uchip.content.board.processor.MOS6502Item;
+import com.alotofletters.uchip.content.drone.DroneItem;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
@@ -16,14 +17,16 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 
 public class MicrochipItems {
-
-
     private static final Registrate REGISTRATE = Microchip.REGISTRATE.get();
 
     public static ItemEntry<BoardItem> BOARD = REGISTRATE.item("board", BoardItem::new)
             .model(empty())
             .lang("Proto Board")
             .register();
+
+	public static ItemEntry<DroneItem> DRONE = REGISTRATE.item("drone", DroneItem::new)
+			.model(empty())
+			.register();
 
     public static ItemEntry<MOS6502Item> PROCESSOR_6502 = REGISTRATE.item("processor_6502", MOS6502Item::new)
             .model(empty())
@@ -33,6 +36,7 @@ public class MicrochipItems {
 
 	public static ItemEntry<RamItem> RAM_32K = ram("ram_32k", RamType.RAM_32K)
 			.model(empty())
+			.lang("32k SRAM") // TODO: cheaper but more power consuming dram?
 			.transform(MicrochipItems::chip)
 			.register();
 

@@ -2,14 +2,16 @@
   "arch.uchip.6502": "MOS 6502 ISA",
   "block.uchip.casing": "Casing",
   "block.uchip.chip_builder": "Chip Builder",
+  "entity.uchip.drone": "Drone",
   "item.uchip.board": "Proto Board",
   "item.uchip.board.edit_name": "Board Name",
   "item.uchip.board.effect_casing": "When in Board:",
   "item.uchip.component.address_width": "%s Address pins",
   "item.uchip.component.data_width": "%s Data pins",
   "item.uchip.component.effect_board": "When in Board:",
+  "item.uchip.drone": "Drone",
   "item.uchip.processor_6502": "MOS 6502",
-  "item.uchip.ram_32k": "Ram 32k",
+  "item.uchip.ram_32k": "32k SRAM",
   "item.uchip.silicon_wafer": "Silicon Wafer",
   "itemGroup.uchip": "Microchips"
 }

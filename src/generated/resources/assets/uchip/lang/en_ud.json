@@ -2,14 +2,16 @@
   "arch.uchip.6502": "ⱯSI ᄅ0ϛ9 SOW",
   "block.uchip.casing": "buısɐƆ",
   "block.uchip.chip_builder": "ɹǝpןınᗺ dıɥƆ",
+  "entity.uchip.drone": "ǝuoɹᗡ",
   "item.uchip.board": "pɹɐoᗺ oʇoɹԀ",
   "item.uchip.board.edit_name": "ǝɯɐN pɹɐoᗺ",
   "item.uchip.board.effect_casing": ":pɹɐoᗺ uı uǝɥM",
   "item.uchip.component.address_width": "suıd ssǝɹppⱯ %s",
   "item.uchip.component.data_width": "suıd ɐʇɐᗡ %s",
   "item.uchip.component.effect_board": ":pɹɐoᗺ uı uǝɥM",
+  "item.uchip.drone": "ǝuoɹᗡ",
   "item.uchip.processor_6502": "ᄅ0ϛ9 SOW",
-  "item.uchip.ram_32k": "ʞᄅƐ ɯɐᴚ",
+  "item.uchip.ram_32k": "WⱯᴚS ʞᄅƐ",
   "item.uchip.silicon_wafer": "ɹǝɟɐM uoɔıןıS",
   "itemGroup.uchip": "sdıɥɔoɹɔıW"
 }

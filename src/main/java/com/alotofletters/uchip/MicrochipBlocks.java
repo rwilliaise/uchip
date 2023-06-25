@@ -34,7 +34,7 @@ public class MicrochipBlocks {
                     return existingModel(prov, "block/casing/board");
                 return existingModel(prov, "block/casing/empty");
             }))
-            .transform(b -> b.tag(BlockTags.MINEABLE_WITH_PICKAXE))
+            .tag(BlockTags.MINEABLE_WITH_PICKAXE)
             .item()
             .model((ctx, prov) -> prov.withExistingParent("casing", prov.modLoc("block/casing/board")))
             .build()
