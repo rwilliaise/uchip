@@ -25,16 +25,19 @@ public class Board {
 	}
 
 	public int read(int address) {
+		if (processor == null) return 0;
 		return components.stream()
 			.filter(comp -> comp.from <= address && comp.to > address)
 			.map(comp -> comp.component.read(address))
-			.reduce(0, (x, y) -> x | y);
+			.reduce(0, (x, y) -> x | y) & processor.mask();
 	}
 
 	public void write(int address, int value) {
+		if (processor == null) return;
+		int masked = processor.mask(address);
 		components.stream()
-			.filter(comp -> comp.from <= address && comp.to > address)
-			.forEach(comp -> comp.component.write(address, value));
+			.filter(comp -> comp.from <= masked && comp.to > masked)
+			.forEach(comp -> comp.component.write(masked, value));
 	}
 
 	public boolean clock() {

@@ -7,11 +7,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import com.alotofletters.uchip.content.drone.DroneEntity;
 import com.tterrag.registrate.Registrate;
 
 @Mod(Microchip.MOD_ID)
@@ -40,7 +38,7 @@ public class Microchip
         MicrochipBlocks.register();
         MicrochipBlockEntities.register();
         MicrochipMenuTypes.register();
-		MicrochipEntities.register();
+		MicrochipEntityTypes.register();
     }
 
 	@SubscribeEvent

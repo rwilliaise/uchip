@@ -6,37 +6,28 @@ import com.alotofletters.uchip.foundation.board.Processor;
 import net.minecraft.world.item.ItemStack;
 
 public class MOS6502Processor extends Processor {
-    private byte accumulator, y, x, stackPointer;
-    private boolean negative, overflow, brk, decimal, irq, zero, carry;
-    private short programCounter;
-
-    private byte cycle;
+    private int accumulator, y, x, stackPointer, programCounter, flags;
 
     public MOS6502Processor(Board owner, ItemStack stack) {
         super(owner, stack);
+		this.reset();
     }
 
     @Override
     public boolean clock() {
-        // RESET initialization sequence
-        switch (cycle++) {
-        case 0:
-            
-            return true;
-        default:
-            break;
-        }
         return false;
     }
 
-    @Override
-    public int getPageSize() {
-        return 256;
-    }
+	@Override
+	public void reset() {
+		// TODO: 7 cycle RESET interrupt replication?
+		stackPointer = 0xff;
+		programCounter = mask(owner.read(0xfffd) << 8 + owner.read(0xfffc));
+	}
 
     @Override
-    public int getPages() {
-        return 256;
+    public int getPageSize() {
+        return 256; // sqrt(65536)
     }
 
     @Override
