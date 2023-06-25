@@ -2,7 +2,6 @@ package com.alotofletters.uchip.content.board.processor;
 
 import com.alotofletters.uchip.foundation.board.Board;
 import com.alotofletters.uchip.foundation.board.Processor;
-
 import net.minecraft.world.item.ItemStack;
 
 public class MOS6502Processor extends Processor {
@@ -10,7 +9,7 @@ public class MOS6502Processor extends Processor {
 
     public MOS6502Processor(Board owner, ItemStack stack) {
         super(owner, stack);
-		this.reset();
+        this.reset();
     }
 
     @Override
@@ -18,12 +17,12 @@ public class MOS6502Processor extends Processor {
         return false;
     }
 
-	@Override
-	public void reset() {
-		// TODO: 7 cycle RESET interrupt replication?
-		stackPointer = 0xff;
-		programCounter = mask(owner.read(0xfffd) << 8 + owner.read(0xfffc));
-	}
+    @Override
+    public void reset() {
+        // TODO: 7 cycle RESET interrupt replication?
+        stackPointer = 0xff;
+        programCounter = mask(owner.read(0xfffd) << 8 + owner.read(0xfffc));
+    }
 
     @Override
     public int getPageSize() {
@@ -37,6 +36,6 @@ public class MOS6502Processor extends Processor {
 
     @Override
     public int getAddressWidth() {
-		return 16;
+        return 16;
     }
 }

@@ -20,30 +20,30 @@ public class Board {
     protected ArrayList<RangedComponent> components = Lists.newArrayList();
     protected Processor processor;
 
-	public Board(ItemStack stack) {
-		load(stack.getOrCreateTag());
-	}
+    public Board(ItemStack stack) {
+        load(stack.getOrCreateTag());
+    }
 
-	public int read(int address) {
-		if (processor == null) return 0;
-		return components.stream()
-			.filter(comp -> comp.from <= address && comp.to > address)
-			.map(comp -> comp.component.read(address))
-			.reduce(0, (x, y) -> x | y) & processor.mask();
-	}
+    public int read(int address) {
+        if (processor == null) return 0;
+        return components.stream()
+                .filter(comp -> comp.from <= address && comp.to > address)
+                .map(comp -> comp.component.read(address))
+                .reduce(0, (x, y) -> x | y) & processor.mask();
+    }
 
-	public void write(int address, int value) {
-		if (processor == null) return;
-		int masked = processor.mask(address);
-		components.stream()
-			.filter(comp -> comp.from <= masked && comp.to > masked)
-			.forEach(comp -> comp.component.write(masked, value));
-	}
+    public void write(int address, int value) {
+        if (processor == null) return;
+        int masked = processor.mask(address);
+        components.stream()
+                .filter(comp -> comp.from <= masked && comp.to > masked)
+                .forEach(comp -> comp.component.write(masked, value));
+    }
 
-	public boolean clock() {
-		if (this.processor == null) return false;
-		return this.processor.clock();
-	}
+    public boolean clock() {
+        if (this.processor == null) return false;
+        return this.processor.clock();
+    }
 
     public void save(CompoundTag tag) {
         ListTag components = new ListTag();
@@ -60,7 +60,9 @@ public class Board {
 
     public boolean equipComponent(BoardComponent component) {
         if (component instanceof Processor processor) {
-            if (this.processor != null) { return false; }
+            if (this.processor != null) {
+                return false;
+            }
 
             this.processor = processor;
             return true;
@@ -70,7 +72,7 @@ public class Board {
     }
 
     public boolean isLittleEndian() {
-		return true; // TODO
+        return true; // TODO
     }
 
     public record RangedComponent(BoardComponent component, int from, int to) {

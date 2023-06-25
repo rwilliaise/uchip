@@ -9,13 +9,13 @@ import net.minecraft.world.level.Level;
 
 public class DroneItem extends Item {
 
-	public DroneItem(Properties pProperties) {
-		super(pProperties);
-	}
+    public DroneItem(Properties pProperties) {
+        super(pProperties);
+    }
 
-	@Override
-	public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-		ItemStack stack = pPlayer.getItemInHand(pUsedHand);
-		return InteractionResultHolder.pass(stack);
-	}
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+        ItemStack stack = pPlayer.getItemInHand(pUsedHand);
+        return InteractionResultHolder.pass(stack);
+    }
 }

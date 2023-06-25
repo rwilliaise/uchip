@@ -9,10 +9,12 @@ public abstract class Processor extends BoardComponent {
     }
 
     public abstract boolean clock();
-	public abstract void reset();
+
+    public abstract void reset();
 
     /**
-	 * Pages are sections of memory that can be allocated to components on the board.
+     * Pages are sections of memory that can be allocated to components on the board.
+     *
      * @return Size of one page in bytes.
      */
     public abstract int getPageSize();

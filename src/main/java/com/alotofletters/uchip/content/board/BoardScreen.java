@@ -71,7 +71,7 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
             super(pFont, pX, pY, pWidth, pHeight, pMessage);
             setMaxLength(4);
             setFilter(this::filterNumbers);
-			setFormatter((str, i) -> FormattedCharSequence.forward(str, BoardScreen.CHIP_FONT));
+            setFormatter((str, i) -> FormattedCharSequence.forward(str, BoardScreen.CHIP_FONT));
         }
 
         private boolean filterNumbers(String str) {

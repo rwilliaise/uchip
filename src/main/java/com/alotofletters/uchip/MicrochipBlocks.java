@@ -45,5 +45,6 @@ public class MicrochipBlocks {
         return prov.models().getExistingFile(prov.modLoc(location));
     }
 
-    public static void register() { }
+    public static void register() {
+    }
 }

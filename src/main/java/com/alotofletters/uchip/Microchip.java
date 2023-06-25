@@ -1,5 +1,6 @@
 package com.alotofletters.uchip;
 
+import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.resources.ResourceLocation;
@@ -10,11 +11,8 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import com.tterrag.registrate.Registrate;
-
 @Mod(Microchip.MOD_ID)
-public class Microchip
-{
+public class Microchip {
     public static final String MOD_ID = "uchip";
 
     public static final CreativeModeTab TAB = new CreativeModeTab("uchip") {
@@ -31,19 +29,19 @@ public class Microchip
     );
 
     public Microchip() {
-		MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(this);
 
         MicrochipItems.register();
         MicrochipLang.register();
         MicrochipBlocks.register();
         MicrochipBlockEntities.register();
         MicrochipMenuTypes.register();
-		MicrochipEntityTypes.register();
+        MicrochipEntityTypes.register();
     }
 
-	@SubscribeEvent
-	public void entityInteract(EntityInteract event) {
-	}
+    @SubscribeEvent
+    public void entityInteract(EntityInteract event) {
+    }
 
     public static ResourceLocation location(String name) {
         return new ResourceLocation(MOD_ID, name);

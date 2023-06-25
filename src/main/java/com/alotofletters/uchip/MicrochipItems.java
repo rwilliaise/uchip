@@ -24,40 +24,42 @@ public class MicrochipItems {
             .lang("Proto Board")
             .register();
 
-	public static ItemEntry<DroneItem> DRONE = REGISTRATE.item("drone", DroneItem::new)
-			.model(empty())
-			.register();
+    public static ItemEntry<DroneItem> DRONE = REGISTRATE.item("drone", DroneItem::new)
+            .model(empty())
+            .register();
 
     public static ItemEntry<MOS6502Item> PROCESSOR_6502 = REGISTRATE.item("processor_6502", MOS6502Item::new)
             .model(empty())
             .lang("MOS 6502")
-			.transform(MicrochipItems::chip)
+            .transform(MicrochipItems::chip)
             .register();
 
-	public static ItemEntry<RamItem> RAM_32K = ram("ram_32k", RamType.RAM_32K)
-			.model(empty())
-			.lang("32k SRAM") // TODO: cheaper but more power consuming dram?
-			.transform(MicrochipItems::chip)
-			.register();
+    public static ItemEntry<RamItem> RAM_32K = ram("ram_32k", RamType.RAM_32K)
+            .model(empty())
+            .lang("32k SRAM") // TODO: cheaper but more power consuming dram?
+            .transform(MicrochipItems::chip)
+            .register();
 
     public static ItemEntry<Item> SILICON_WAFER = REGISTRATE.item("silicon_wafer", Item::new)
             .recipe((ctx, prov) -> prov.blasting(DataIngredient.items(Items.QUARTZ), ctx, 0.1f))
-			.tag(MicrochipTags.GEM_SILICON)
+            .tag(MicrochipTags.GEM_SILICON)
             .register();
 
     private static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, RegistrateItemModelProvider> empty() {
-        return (ctx, prov) -> {}; // no model generation
+        return (ctx, prov) -> {
+        }; // no model generation
     }
 
-	private static ItemBuilder<RamItem, Registrate> ram(String name, RamType type) { 
-		return REGISTRATE.item(name, (props) -> new RamItem(props, type));
-	}
+    private static ItemBuilder<RamItem, Registrate> ram(String name, RamType type) {
+        return REGISTRATE.item(name, (props) -> new RamItem(props, type));
+    }
 
-	private static <T extends Item> ItemBuilder<T, Registrate> chip(ItemBuilder<T, Registrate> builder) {
-		return builder
-			.properties((props) -> props.rarity(Rarity.UNCOMMON))
-			.tag(MicrochipTags.CHIP);
-	}
+    private static <T extends Item> ItemBuilder<T, Registrate> chip(ItemBuilder<T, Registrate> builder) {
+        return builder
+                .properties((props) -> props.rarity(Rarity.UNCOMMON))
+                .tag(MicrochipTags.CHIP);
+    }
 
-    public static void register() { }
+    public static void register() {
+    }
 }

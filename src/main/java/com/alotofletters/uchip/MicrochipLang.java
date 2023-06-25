@@ -55,5 +55,6 @@ public class MicrochipLang {
         return key;
     }
 
-    public static void register () { }
+    public static void register() {
+    }
 }

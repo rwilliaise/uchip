@@ -17,5 +17,6 @@ public class MicrochipMenuTypes {
     public static final MenuEntry<BoardMenu> BOARD = REGISTRATE.menu("board", BoardMenu::new, () -> BoardScreen::new)
             .register();
 
-    public static void register() { }
+    public static void register() {
+    }
 }

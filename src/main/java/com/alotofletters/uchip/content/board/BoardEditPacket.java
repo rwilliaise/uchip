@@ -9,10 +9,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
 public class BoardEditPacket extends MicrochipPacket {
-    private Board board;
+    private final Board board;
 
     public BoardEditPacket(FriendlyByteBuf buf) {
-		board = new Board(buf.readItem());
+        board = new Board(buf.readItem());
     }
 
     public BoardEditPacket(Board board) {
@@ -21,19 +21,19 @@ public class BoardEditPacket extends MicrochipPacket {
 
     @Override
     public void encode(FriendlyByteBuf buf) {
-		CompoundTag out = new CompoundTag();
-		board.save(out);
+        CompoundTag out = new CompoundTag();
+        board.save(out);
         buf.writeNbt(out);
     }
 
     @Override
     public boolean handle(NetworkEvent.Context context) {
         context.enqueueWork(() -> {
-            ServerPlayer player = context.getSender(); 
+            ServerPlayer player = context.getSender();
             ItemStack stack = player.getMainHandItem();
             if (!(stack.getItem() instanceof BoardItem)) return;
-			CompoundTag out = new CompoundTag();
-			board.save(out);
+            CompoundTag out = new CompoundTag();
+            board.save(out);
             stack.setTag(out);
         });
         return true;

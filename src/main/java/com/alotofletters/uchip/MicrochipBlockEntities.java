@@ -16,5 +16,6 @@ public class MicrochipBlockEntities {
             .validBlock(MicrochipBlocks.CHIP_BUILDER)
             .register();
 
-    public static void register() { }
+    public static void register() {
+    }
 }

@@ -20,11 +20,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CasingBlockEntity extends BlockEntity implements Clearable {
-    private LazyOptional<IEnergyStorage> energyCapability;
-	private ItemStack stack = ItemStack.EMPTY;
+    private final LazyOptional<IEnergyStorage> energyCapability;
+    private ItemStack stack = ItemStack.EMPTY;
     private Board runningBoard;
 
-    private EnergyStorage buffer;
+    private final EnergyStorage buffer;
 
     public CasingBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -36,7 +36,7 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
     public void load(CompoundTag tag) {
         super.load(tag);
         if (tag.contains("Board")) {
-			setBoard(ItemStack.of(tag.getCompound("Board")));
+            setBoard(ItemStack.of(tag.getCompound("Board")));
         }
     }
 
@@ -45,37 +45,37 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
         super.saveAdditional(tag);
 
         if (runningBoard != null) {
-			CompoundTag out = new CompoundTag();
-			runningBoard.save(out);
-			stack.setTag(out);
+            CompoundTag out = new CompoundTag();
+            runningBoard.save(out);
+            stack.setTag(out);
             tag.put("Board", stack.save(new CompoundTag()));
         }
     }
 
     @Override
     public void clearContent() {
-		runningBoard = null;
+        runningBoard = null;
         setChanged();
     }
 
     public void setBoard(ItemStack board) {
-		if (level.isClientSide) return;
+        if (level.isClientSide) return;
         if (board.isEmpty() || board.getItem() instanceof BoardItem) {
             level.setBlock(getBlockPos(), getBlockState().setValue(CasingBlock.HAS_BOARD, !board.isEmpty()), 4);
-			if (!stack.isEmpty()) {
-				BlockPos pos = getBlockPos();
-				level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), stack));
-			}
-			stack = board;
-			if (!board.isEmpty()) {
-				runningBoard = new Board(board);
-			}
+            if (!stack.isEmpty()) {
+                BlockPos pos = getBlockPos();
+                level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), stack));
+            }
+            stack = board;
+            if (!board.isEmpty()) {
+                runningBoard = new Board(board);
+            }
             setChanged();
         }
     }
 
     public ItemStack getBoard() {
-		return stack;
+        return stack;
     }
 
     @Override
