@@ -2,7 +2,7 @@
   "arch.uchip.6502": "MOS 6502 ISA",
   "block.uchip.casing": "Casing",
   "block.uchip.chip_builder": "Chip Builder",
-  "item.uchip.board": "Motherboard",
+  "item.uchip.board": "Proto Board",
   "item.uchip.board.edit_name": "Board Name",
   "item.uchip.board.effect_casing": "When in Board:",
   "item.uchip.component.address_width": "%s Address pins",

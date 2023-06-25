@@ -12,7 +12,7 @@ public class BoardEditPacket extends MicrochipPacket {
     private Board board;
 
     public BoardEditPacket(FriendlyByteBuf buf) {
-		board = Board.of(buf.readItem());
+		board = new Board(buf.readItem());
     }
 
     public BoardEditPacket(Board board) {

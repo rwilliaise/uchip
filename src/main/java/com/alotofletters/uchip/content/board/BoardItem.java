@@ -22,10 +22,6 @@ public class BoardItem extends Item implements MenuProvider {
         super(p_41383_);
     }
 
-	public Board createBoard(ItemStack stack) {
-		return Board.of(stack);
-	}
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);

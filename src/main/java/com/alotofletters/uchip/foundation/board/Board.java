@@ -6,8 +6,6 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.compress.utils.Lists;
 
-import com.alotofletters.uchip.content.board.BoardItem;
-
 import java.util.ArrayList;
 
 /**
@@ -15,12 +13,16 @@ import java.util.ArrayList;
  *
  * @see BoardComponent
  */
-public abstract class Board {
+public class Board {
     protected int data;
     protected int address;
 
     protected ArrayList<RangedComponent> components = Lists.newArrayList();
     protected Processor processor;
+
+	public Board(ItemStack stack) {
+		load(stack.getOrCreateTag());
+	}
 
 	public int read(int address) {
 		return components.stream()
@@ -46,13 +48,6 @@ public abstract class Board {
         tag.put("Components", components);
     }
 
-	public static Board of(ItemStack stack) {
-		if (stack.getItem() instanceof BoardItem item) {
-			return item.createBoard(stack);
-		}
-		return null;
-	}
-
     private void load(CompoundTag tag) {
         if (tag.contains("Components")) {
             ListTag components = tag.getList("Components", Tag.TAG_COMPOUND);
@@ -74,9 +69,6 @@ public abstract class Board {
     public boolean isLittleEndian() {
 		return true; // TODO
     }
-
-    public abstract int getDataWidth();
-    public abstract int getAddressWidth();
 
     public record RangedComponent(BoardComponent component, int from, int to) {
 

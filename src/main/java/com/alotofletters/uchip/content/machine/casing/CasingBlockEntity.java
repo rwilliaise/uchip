@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Clearable;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -35,7 +36,7 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
     public void load(CompoundTag tag) {
         super.load(tag);
         if (tag.contains("Board")) {
-			runningBoard = Board.of(ItemStack.of(tag.getCompound("Board")));
+			setBoard(ItemStack.of(tag.getCompound("Board")));
         }
     }
 
@@ -46,7 +47,8 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
         if (runningBoard != null) {
 			CompoundTag out = new CompoundTag();
 			runningBoard.save(out);
-            tag.put("Board", stack.getOrCreateTag());
+			stack.setTag(out);
+            tag.put("Board", stack.save(new CompoundTag()));
         }
     }
 
@@ -57,12 +59,16 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
     }
 
     public void setBoard(ItemStack board) {
+		if (level.isClientSide) return;
         if (board.isEmpty() || board.getItem() instanceof BoardItem) {
             level.setBlock(getBlockPos(), getBlockState().setValue(CasingBlock.HAS_BOARD, !board.isEmpty()), 4);
-            if (board.getItem() instanceof BoardItem item) {
-                runningBoard = item.createBoard(board);
-            } else {
-				runningBoard = null;
+			if (!stack.isEmpty()) {
+				BlockPos pos = getBlockPos();
+				level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), stack));
+			}
+			stack = board;
+			if (!board.isEmpty()) {
+				runningBoard = new Board(board);
 			}
             setChanged();
         }

@@ -55,9 +55,6 @@ public class BoardMenu extends ItemMenu {
     }
 
     public Board createBoard() {
-        if (stack.getItem() instanceof BoardItem boardItem) {
-            return boardItem.createBoard(stack);
-        }
-        return null;
+        return new Board(stack);
     }
 }

@@ -9,6 +9,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -58,11 +59,8 @@ public class CasingBlock extends HorizontalDirectionalBlock implements EntityBlo
             Optional<CasingBlockEntity> optional = level.getBlockEntity(pos, MicrochipBlockEntities.CASING.get());
             if (optional.isPresent()) {
                 CasingBlockEntity entity = optional.get();
-                if (!entity.getBoard().isEmpty()) {
-                    level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), entity.getBoard()));
-                }
-                entity.setBoard(player.getItemInHand(hand).copy());
-                player.getItemInHand(hand).setCount(0);
+                entity.setBoard(player.getItemInHand(hand));
+                player.setItemInHand(hand, ItemStack.EMPTY);
                 return InteractionResult.CONSUME;
             }
         }

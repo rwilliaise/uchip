@@ -22,7 +22,7 @@ public class MicrochipItems {
 
     public static ItemEntry<BoardItem> BOARD = REGISTRATE.item("board", BoardItem::new)
             .model(empty())
-            .lang("Motherboard")
+            .lang("Proto Board")
             .register();
 
     public static ItemEntry<MOS6502Item> PROCESSOR_6502 = REGISTRATE.item("processor_6502", MOS6502Item::new)
