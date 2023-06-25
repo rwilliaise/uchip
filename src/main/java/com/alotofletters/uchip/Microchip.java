@@ -5,7 +5,13 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import com.alotofletters.uchip.content.drone.DroneEntity;
 import com.tterrag.registrate.Registrate;
 
 @Mod(Microchip.MOD_ID)
@@ -26,14 +32,20 @@ public class Microchip
                     .addDataGenerator(ProviderType.LANG, (prov) -> prov.add(TAB, "Microchips"))
     );
 
-    public Microchip()
-    {
+    public Microchip() {
+		MinecraftForge.EVENT_BUS.register(this);
+
         MicrochipItems.register();
         MicrochipLang.register();
         MicrochipBlocks.register();
         MicrochipBlockEntities.register();
         MicrochipMenuTypes.register();
+		MicrochipEntities.register();
     }
+
+	@SubscribeEvent
+	public void entityInteract(EntityInteract event) {
+	}
 
     public static ResourceLocation location(String name) {
         return new ResourceLocation(MOD_ID, name);
