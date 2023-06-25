@@ -33,12 +33,22 @@ public abstract class BoardComponent {
 
     public void write(int address, int value) {}
 
-    public int getDataMask() {
-        return (int) Math.pow(2, getDataWidth()) - 1;
-    }
+	public int mask() {
+		return ((int) Math.pow(2, this.getAddressWidth())) - 1;
+	}
 
+	public int mask(int value) {
+		return mask() & value;
+	}
+
+	/**
+	 * @return Pins present for data bus.
+	 */
     public abstract int getDataWidth();
-    public abstract int getAddressSpace();
+	/**
+	 * @return Pins present for address bus.
+	 */
+    public abstract int getAddressWidth();
 
     public void save(CompoundTag tag) {}
     public void load(CompoundTag tag) {}

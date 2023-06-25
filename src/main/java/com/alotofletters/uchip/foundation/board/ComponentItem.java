@@ -27,6 +27,6 @@ public abstract class ComponentItem<T extends BoardComponent> extends Item {
         list.add(CommonComponents.EMPTY);
         list.add(Component.translatable(MicrochipLang.BOARD_COMPONENT_EFFECT).withStyle(ChatFormatting.GRAY));
         list.add(MicrochipLang.tab().append(Component.translatable(MicrochipLang.BOARD_COMPONENT_DATA_WIDTH, component.getDataWidth()).withStyle(ChatFormatting.BLUE)));
-        list.add(MicrochipLang.tab().append(Component.translatable(MicrochipLang.BOARD_COMPONENT_ADDRESS_WIDTH, component.getAddressSpace()).withStyle(ChatFormatting.BLUE)));
+        list.add(MicrochipLang.tab().append(Component.translatable(MicrochipLang.BOARD_COMPONENT_ADDRESS_WIDTH, component.getAddressWidth()).withStyle(ChatFormatting.BLUE)));
     }
 }

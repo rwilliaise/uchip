@@ -32,7 +32,7 @@ public class MicrochipItems {
             .tag(MicrochipTags.BOARD)
             .register();
 
-	public static ItemEntry<RamItem> RAM_32K = ram("ram_32k", 8, 32_768)
+	public static ItemEntry<RamItem> RAM_32K = ram("ram_32k", 8, 15)
 		.register();
 
     public static ItemEntry<Item> SILICON_WAFER = REGISTRATE.item("silicon_wafer", Item::new)
@@ -43,8 +43,8 @@ public class MicrochipItems {
         return (ctx, prov) -> {}; // no model generation
     }
 
-	private static ItemBuilder<RamItem, Registrate> ram(String name, int dataSize, int size) { 
-		return REGISTRATE.item(name, (props) -> new RamItem(props, dataSize, size));
+	private static ItemBuilder<RamItem, Registrate> ram(String name, int dataSize, int pins) { 
+		return REGISTRATE.item(name, (props) -> new RamItem(props, dataSize, pins));
 	}
 
     public static void register() { }

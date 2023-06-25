@@ -36,7 +36,7 @@ public class RamComponent extends BoardComponent {
 	}
 
 	@Override
-	public int getAddressSpace() {
+	public int getAddressWidth() {
 		return size;
 	}
 }

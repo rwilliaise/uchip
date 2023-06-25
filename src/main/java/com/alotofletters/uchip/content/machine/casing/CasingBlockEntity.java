@@ -20,7 +20,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class CasingBlockEntity extends BlockEntity implements Clearable {
     private LazyOptional<IEnergyStorage> energyCapability;
-    private ItemStack board = ItemStack.EMPTY;
     private Board runningBoard;
 
     private EnergyStorage buffer;
@@ -35,7 +34,7 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
     public void load(CompoundTag tag) {
         super.load(tag);
         if (tag.contains("Board")) {
-            this.setBoard(ItemStack.of(tag.getCompound("BoardItem")));
+			runningBoard = Board.of(tag.getCompound("Board"));
         }
     }
 
@@ -43,31 +42,34 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
 
-        if (!this.board.isEmpty()) {
-            tag.put("BoardItem", board.save(new CompoundTag()));
+        if (runningBoard != null) {
+			CompoundTag out = new CompoundTag();
+			runningBoard.save(out);
+            tag.put("Board", out);
         }
     }
 
     @Override
     public void clearContent() {
-        this.board = ItemStack.EMPTY;
-        this.setChanged();
+		runningBoard = null;
+        setChanged();
     }
 
     public void setBoard(ItemStack board) {
         if (board.isEmpty() || board.getItem() instanceof BoardItem) {
             level.setBlock(getBlockPos(), getBlockState().setValue(CasingBlock.HAS_BOARD, !board.isEmpty()), 4);
-            this.board = board;
-            if (!board.isEmpty()) {
-                BoardItem item = (BoardItem) board.getItem();
+            if (board.getItem() instanceof BoardItem item) {
                 runningBoard = item.createBoard(board);
-            }
-            this.setChanged();
+            } else {
+				runningBoard = null;
+			}
+            setChanged();
         }
     }
 
     public ItemStack getBoard() {
-        return board;
+		if (runningBoard == null) return ItemStack.EMPTY;
+        return runningBoard.stack;
     }
 
     @Override
