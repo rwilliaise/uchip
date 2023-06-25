@@ -9,35 +9,33 @@ import com.google.common.collect.Maps;
 import net.minecraft.world.item.ItemStack;
 
 public class RamComponent extends BoardComponent {
-	private final int dataSize;
-	private final int size;
+	private final RamType type;
     private HashMap<Integer, Byte> memory;
 
-	public RamComponent(Board owner, ItemStack stack, int dataSize, int size) {
+	public RamComponent(Board owner, ItemStack stack, RamType type) {
 		super(owner, stack);
-		this.dataSize = dataSize;
-		this.size = size;
         this.memory = Maps.newHashMap();
+		this.type = type;
 	}
 
     @Override
     public int read(int address) {
-        return memory.get(address);       
+        return memory.get(mask(address));
     }
 
     @Override
     public void write(int address, int value) {
-        memory.put(address, (byte) value);
+        memory.put(mask(address), (byte) value);
     }
 
 	@Override
 	public int getDataWidth() {
-		return dataSize;
+		return type.dataWidth;
 	}
 
 	@Override
 	public int getAddressWidth() {
-		return size;
+		return type.addressWidth;
 	}
 }
 

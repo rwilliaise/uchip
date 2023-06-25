@@ -11,7 +11,7 @@ import com.alotofletters.uchip.content.board.BoardItem;
 import java.util.ArrayList;
 
 /**
- * Represents a board BoardComponents can interface with.
+ * Represents a board BoardComponents can interface with. Stores items.
  *
  * @see BoardComponent
  */
@@ -19,15 +19,8 @@ public abstract class Board {
     protected int data;
     protected int address;
 
-    public ItemStack stack = ItemStack.EMPTY;
     protected ArrayList<RangedComponent> components = Lists.newArrayList();
-
     protected Processor processor;
-
-    public Board(ItemStack stack) {
-        this.stack = stack;
-		load(stack.getOrCreateTag());
-    }
 
 	public int read(int address) {
 		return components.stream()
@@ -42,32 +35,20 @@ public abstract class Board {
 			.forEach(comp -> comp.component.write(address, value));
 	}
 
-	public int mask() {
-		return ((int) Math.pow(2, this.getDataWidth())) - 1;
-	}
-
-	public int mask(int value) {
-		return mask() & value;
-	}
-
 	public boolean clock() {
 		if (this.processor == null) return false;
 		return this.processor.clock();
 	}
 
     public void save(CompoundTag tag) {
-		tag.put("Stack", stack.save(new CompoundTag()));
         ListTag components = new ListTag();
         this.components.forEach(component -> components.add(component.save(new CompoundTag())));
         tag.put("Components", components);
     }
 
-	public static Board of(CompoundTag tag) {
-		if (tag.contains("Stack", Tag.TAG_COMPOUND)) {
-			ItemStack stack = ItemStack.of(tag.getCompound("Stack"));
-			if (stack.getItem() instanceof BoardItem item) {
-				return item.createBoard(stack);
-			}
+	public static Board of(ItemStack stack) {
+		if (stack.getItem() instanceof BoardItem item) {
+			return item.createBoard(stack);
 		}
 		return null;
 	}

@@ -1,0 +1,6 @@
+{
+  "values": [
+    "uchip:processor_6502",
+    "uchip:ram_32k"
+  ]
+}

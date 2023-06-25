@@ -20,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class CasingBlockEntity extends BlockEntity implements Clearable {
     private LazyOptional<IEnergyStorage> energyCapability;
+	private ItemStack stack = ItemStack.EMPTY;
     private Board runningBoard;
 
     private EnergyStorage buffer;
@@ -34,7 +35,7 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
     public void load(CompoundTag tag) {
         super.load(tag);
         if (tag.contains("Board")) {
-			runningBoard = Board.of(tag.getCompound("Board"));
+			runningBoard = Board.of(ItemStack.of(tag.getCompound("Board")));
         }
     }
 
@@ -45,7 +46,7 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
         if (runningBoard != null) {
 			CompoundTag out = new CompoundTag();
 			runningBoard.save(out);
-            tag.put("Board", out);
+            tag.put("Board", stack.getOrCreateTag());
         }
     }
 
@@ -68,8 +69,7 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
     }
 
     public ItemStack getBoard() {
-		if (runningBoard == null) return ItemStack.EMPTY;
-        return runningBoard.stack;
+		return stack;
     }
 
     @Override

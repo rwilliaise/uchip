@@ -19,10 +19,10 @@ public class MicrochipLang {
             addLang("item.uchip.component.effect_board", "When in Board:");
 
     public static final String BOARD_COMPONENT_DATA_WIDTH =
-            addLang("item.uchip.component.data_width", "%s bit Data");
+            addLang("item.uchip.component.data_width", "%s Data pins");
 
     public static final String BOARD_COMPONENT_ADDRESS_WIDTH =
-            addLang("item.uchip.component.address_width", "%s bit Address");
+            addLang("item.uchip.component.address_width", "%s Address pins");
 
     // processor instruction sets/architectures
     public static final String PROCESSOR_ARCH_6502 =

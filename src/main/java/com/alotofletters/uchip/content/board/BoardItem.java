@@ -17,12 +17,14 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BoardItem extends Item implements MenuProvider {
+public class BoardItem extends Item implements MenuProvider {
     public BoardItem(Properties p_41383_) {
         super(p_41383_);
     }
 
-    public abstract Board createBoard(ItemStack stack);
+	public Board createBoard(ItemStack stack) {
+		return Board.of(stack);
+	}
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {

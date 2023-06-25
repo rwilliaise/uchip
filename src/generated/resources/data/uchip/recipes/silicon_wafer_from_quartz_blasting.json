@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "minecraft:quartz"
+  },
+  "result": "uchip:silicon_wafer"
+}

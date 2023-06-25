@@ -9,23 +9,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
 public class BoardEditPacket extends MicrochipPacket {
-    private String name;
     private Board board;
 
-
     public BoardEditPacket(FriendlyByteBuf buf) {
-        name = buf.readUtf();
-		// TODO: board = ?
+		board = Board.of(buf.readItem());
     }
 
-    public BoardEditPacket(String name, Board board) {
-        this.name = name;
+    public BoardEditPacket(Board board) {
         this.board = board;
     }
 
     @Override
     public void encode(FriendlyByteBuf buf) {
-        buf.writeUtf(name);
 		CompoundTag out = new CompoundTag();
 		board.save(out);
         buf.writeNbt(out);

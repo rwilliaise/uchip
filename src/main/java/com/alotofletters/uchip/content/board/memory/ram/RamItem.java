@@ -6,18 +6,16 @@ import com.alotofletters.uchip.foundation.board.ComponentItem;
 import net.minecraft.world.item.ItemStack;
 
 public class RamItem extends ComponentItem<RamComponent> {
-	private final int dataSize;
-	private final int size;
+	private final RamType type;
 
 	// TODO: sram + dram, difference between them?
-	public RamItem(Properties pProperties, int dataSize, int size) {
+	public RamItem(Properties pProperties, RamType type) {
 		super(pProperties);
-		this.dataSize = dataSize;
-		this.size = size;
+		this.type = type;
 	}
 
 	@Override
 	public RamComponent createComponent(Board board, ItemStack stack) {
-		return new RamComponent(board, stack, dataSize, size);
+		return new RamComponent(board, stack, type);
 	} 
 }
