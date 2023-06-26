@@ -1,6 +1,12 @@
 package com.alotofletters.uchip.content.drone;
 
 import com.alotofletters.uchip.MicrochipItems;
+import com.alotofletters.uchip.foundation.board.Board;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -9,14 +15,33 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class DroneEntity extends PathfinderMob {
+    private ItemStack stack;
+    private Board board;
+
     public DroneEntity(EntityType<DroneEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new FlyingMoveControl(this, 10, true); // TODO
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.put("Board", stack.save(new CompoundTag()));
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        if (pCompound.contains("Board", Tag.TAG_COMPOUND)) {
+            stack = ItemStack.of(pCompound.getCompound("Board"));
+        }
     }
 
     protected @NotNull PathNavigation createNavigation(@NotNull Level pLevel) {
@@ -25,6 +50,28 @@ public class DroneEntity extends PathfinderMob {
         flyingpathnavigation.setCanPassDoors(true);
         flyingpathnavigation.setCanFloat(true);
         return flyingpathnavigation;
+    }
+
+    @Override
+    protected InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack stack = pPlayer.getItemInHand(pHand);
+        if (stack.is(MicrochipItems.BOARD.get())) {
+            setBoard(stack);
+            pPlayer.setItemInHand(pHand, ItemStack.EMPTY);
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    protected void dropEquipment() {
+        super.dropEquipment();
+        spawnAtLocation(this.stack);
+    }
+
+    public void setBoard(ItemStack stack) {
+        this.stack = stack;
+        this.board = new Board(stack);
     }
 
     @Override

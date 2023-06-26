@@ -57,9 +57,8 @@ public class CasingBlock extends HorizontalDirectionalBlock implements EntityBlo
             Optional<CasingBlockEntity> optional = level.getBlockEntity(pos, MicrochipBlockEntities.CASING.get());
             if (optional.isPresent()) {
                 CasingBlockEntity entity = optional.get();
-                ItemStack stack = player.getItemInHand(hand);
-                entity.setBoard(stack.copy());
-                stack.shrink(1);
+                entity.setBoard(player.getItemInHand(hand));
+                player.setItemInHand(hand, ItemStack.EMPTY);
                 return InteractionResult.CONSUME;
             }
         }

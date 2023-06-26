@@ -26,6 +26,7 @@ public class MOS6502Processor extends Processor {
         programCounter = mask(owner.read(0xfffd) << 8 + owner.read(0xfffc));
     }
 
+
     @Override
     public int getPageSize() {
         return 256; // sqrt(65536)
