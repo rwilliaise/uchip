@@ -1,10 +1,16 @@
-package com.alotofletters.uchip.content.board.processor;
+package com.alotofletters.uchip.content.board.processor.mos6502;
+
+import java.util.HashMap;
+import java.util.function.Consumer;
 
 import com.alotofletters.uchip.foundation.board.Board;
 import com.alotofletters.uchip.foundation.board.Processor;
+import com.google.common.collect.Maps;
+
 import net.minecraft.world.item.ItemStack;
 
 public class MOS6502Processor extends Processor {
+    private static final HashMap<Byte, Consumer<MOS6502Processor>> INSTRUCTIONS = Maps.newHashMap();
     private int accumulator, y, x, stackPointer, programCounter, flags;
 
     public MOS6502Processor(Board owner, ItemStack stack) {
@@ -40,5 +46,9 @@ public class MOS6502Processor extends Processor {
     @Override
     public int getAddressWidth() {
         return 16;
+    }
+
+    private static class MOS6502ISA {
+
     }
 }
