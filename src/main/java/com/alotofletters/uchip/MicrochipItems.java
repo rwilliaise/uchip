@@ -22,10 +22,12 @@ public class MicrochipItems {
     public static ItemEntry<BoardItem> BOARD = REGISTRATE.item("board", BoardItem::new)
             .model(empty())
             .lang("Proto Board")
+            .transform(MicrochipItems::unstackable)
             .register();
 
     public static ItemEntry<DroneItem> DRONE = REGISTRATE.item("drone", DroneItem::new)
             .model(empty())
+            .transform(MicrochipItems::unstackable)
             .register();
 
     public static ItemEntry<MOS6502Item> PROCESSOR_6502 = REGISTRATE.item("processor_6502", MOS6502Item::new)
@@ -56,8 +58,13 @@ public class MicrochipItems {
 
     private static <T extends Item> ItemBuilder<T, Registrate> chip(ItemBuilder<T, Registrate> builder) {
         return builder
-                .properties((props) -> props.rarity(Rarity.UNCOMMON))
+                .properties(props -> props.rarity(Rarity.UNCOMMON).stacksTo(1))
                 .tag(MicrochipTags.CHIP);
+    }
+
+    private static <T extends Item> ItemBuilder<T, Registrate> unstackable(ItemBuilder<T, Registrate> builder) {
+        return builder
+                .properties(props -> props.stacksTo(1));
     }
 
     public static void register() {

@@ -9,21 +9,22 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.phys.Vec3;
 
 public class DroneModel extends EntityModel<DroneEntity> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Microchip.location("dronemodel"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Microchip.location("drone"), "main");
     private final ModelPart northeast;
     private final ModelPart northwest;
     private final ModelPart southeast;
     private final ModelPart southwest;
-    private final ModelPart bb_main;
+    private final ModelPart main;
 
     public DroneModel(ModelPart root) {
         this.northeast = root.getChild("northeast");
         this.northwest = root.getChild("northwest");
         this.southeast = root.getChild("southeast");
         this.southwest = root.getChild("southwest");
-        this.bb_main = root.getChild("bb_main");
+        this.main = root.getChild("bb_main");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -58,12 +59,16 @@ public class DroneModel extends EntityModel<DroneEntity> {
         northwest.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         southeast.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         southwest.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        bb_main.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        main.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override
     public void setupAnim(DroneEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
                           float pNetHeadYaw, float pHeadPitch) {
-
+        float rot = (float) (pAgeInTicks * Math.max(pEntity.getDeltaMovement().y + 1, 0));
+        northeast.yRot = rot;
+        northwest.yRot = rot;
+        southeast.yRot = rot;
+        southwest.yRot = rot;
     }
 }

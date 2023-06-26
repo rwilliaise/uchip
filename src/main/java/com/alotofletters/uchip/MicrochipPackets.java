@@ -33,4 +33,8 @@ public class MicrochipPackets {
                 })
                 .add();
     }
+
+    public static void register() {
+
+    }
 }

@@ -68,6 +68,7 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
             }
             stack = board;
             if (!board.isEmpty()) {
+                stack.setCount(1);
                 runningBoard = new Board(board);
             }
             setChanged();

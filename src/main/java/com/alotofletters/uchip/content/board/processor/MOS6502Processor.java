@@ -9,7 +9,9 @@ public class MOS6502Processor extends Processor {
 
     public MOS6502Processor(Board owner, ItemStack stack) {
         super(owner, stack);
-        this.reset();
+        if (owner != null) {
+            this.reset();
+        }
     }
 
     @Override

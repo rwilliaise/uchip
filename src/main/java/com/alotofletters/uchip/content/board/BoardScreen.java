@@ -64,6 +64,7 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
     @Override
     public void removed() {
         super.removed();
+        // TODO: send BoardEditPacket
     }
 
     private class PageEditBox extends EditBox {
