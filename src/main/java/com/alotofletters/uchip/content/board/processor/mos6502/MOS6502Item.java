@@ -1,4 +1,4 @@
-package com.alotofletters.uchip.content.board.processor.6502;
+package com.alotofletters.uchip.content.board.processor.mos6502;
 
 import com.alotofletters.uchip.MicrochipLang;
 import com.alotofletters.uchip.foundation.board.Board;
