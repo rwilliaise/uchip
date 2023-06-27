@@ -1,9 +1,13 @@
 package com.alotofletters.uchip.content.drone;
 
 import com.alotofletters.uchip.MicrochipItems;
+import com.alotofletters.uchip.MicrochipMenuTypes;
+import com.alotofletters.uchip.content.board.shell.Shell;
+import com.alotofletters.uchip.content.board.shell.ShellType;
 import com.alotofletters.uchip.foundation.board.Board;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -14,18 +18,23 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
+
+import javax.annotation.Nullable;
+
 import org.jetbrains.annotations.NotNull;
 
-public class DroneEntity extends PathfinderMob {
+public class Drone extends PathfinderMob implements Shell {
     private ItemStackHandler handler = new ItemStackHandler(1);
     private Board board;
 
-    public DroneEntity(EntityType<DroneEntity> pEntityType, Level pLevel) {
+    public Drone(EntityType<Drone> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new FlyingMoveControl(this, 10, true); // TODO
     }
@@ -54,16 +63,10 @@ public class DroneEntity extends PathfinderMob {
 
     @Override
     protected InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        ItemStack stack = pPlayer.getItemInHand(pHand);
-        if (stack.is(MicrochipItems.BOARD.get())) {
-            if (!handler.getStackInSlot(0).isEmpty()) {
-                spawnAtLocation(handler.extractItem(0, 1, false));
-            }
-            setBoard(stack);
-            pPlayer.setItemInHand(pHand, ItemStack.EMPTY);
-            return InteractionResult.sidedSuccess(level.isClientSide);
+        if (!level.isClientSide && pPlayer instanceof ServerPlayer player) {
+            this.openScreen(player);
         }
-        return InteractionResult.PASS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -98,6 +101,16 @@ public class DroneEntity extends PathfinderMob {
     @Override
     public float getVisualRotationYInDegrees() {
         return super.getYRot();
+    }
+
+    @Override
+    public ItemStackHandler getContainer() {
+        return this.handler;
+    }
+
+    @Override
+    public ShellType getShellType() {
+        return ShellType.DRONE;
     }
 
     public static AttributeSupplier.Builder createAttributes() {

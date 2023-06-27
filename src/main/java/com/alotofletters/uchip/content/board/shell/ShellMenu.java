@@ -1,15 +1,36 @@
 package com.alotofletters.uchip.content.board.shell;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class ShellMenu extends AbstractContainerMenu {
-	public ShellMenu(MenuType<?> pMenuType, int pContainerId, Inventory inventory) {
-		super(pMenuType, pContainerId);
+    private Inventory playerInventory;
+    private Shell shell;
+
+	public ShellMenu(MenuType<?> pMenuType, int pContainerId, Inventory inventory, @Nullable FriendlyByteBuf buf) {
+		super(pMenuType, pContainerId); 
+        if (buf == null) { return; }
+
+        ShellType type = buf.readEnum(ShellType.class);
+        init(inventory, );
 	}
+
+    public ShellMenu(MenuType<?> menuType, int id, Inventory inventory, Shell shell) {
+        super(menuType, id);
+        init(inventory, shell);
+    }
+
+    private void init(Inventory playerInventory, Shell shell) {
+        this.playerInventory = playerInventory;
+        this.shell = shell;
+    }
 
 	@Override
 	public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
@@ -18,7 +39,7 @@ public class ShellMenu extends AbstractContainerMenu {
 
 	@Override
 	public boolean stillValid(Player pPlayer) {
-		return false;
+		return true; // TODO?
 	}
 
 

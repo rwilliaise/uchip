@@ -1,10 +1,14 @@
 package com.alotofletters.uchip.content.machine.casing;
 
+import com.alotofletters.uchip.MicrochipBlocks;
 import com.alotofletters.uchip.content.board.BoardItem;
+import com.alotofletters.uchip.content.board.shell.Shell;
+import com.alotofletters.uchip.content.board.shell.ShellType;
 import com.alotofletters.uchip.foundation.board.Board;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -16,10 +20,12 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.items.ItemStackHandler;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CasingBlockEntity extends BlockEntity implements Clearable {
+public class CasingBlockEntity extends BlockEntity implements Clearable, Shell {
     private final LazyOptional<IEnergyStorage> energyCapability;
     private ItemStack stack = ItemStack.EMPTY;
     private Board runningBoard;
@@ -85,5 +91,21 @@ public class CasingBlockEntity extends BlockEntity implements Clearable {
             return energyCapability.cast();
         }
         return super.getCapability(cap, side);
+    }
+
+    @Override
+    public ItemStackHandler getContainer() {
+        return null;
+    }
+
+    @Override
+    public ShellType getShellType() {
+        return ShellType.CASING;
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return MicrochipBlocks.CASING.get()
+                .getName();
     }
 }

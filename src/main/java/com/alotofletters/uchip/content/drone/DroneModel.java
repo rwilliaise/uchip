@@ -11,7 +11,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.phys.Vec3;
 
-public class DroneModel extends EntityModel<DroneEntity> {
+public class DroneModel extends EntityModel<Drone> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Microchip.location("drone"), "main");
     private final ModelPart northeast;
     private final ModelPart northwest;

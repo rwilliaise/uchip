@@ -1,6 +1,6 @@
 package com.alotofletters.uchip;
 
-import com.alotofletters.uchip.content.drone.DroneEntity;
+import com.alotofletters.uchip.content.drone.Drone;
 import com.alotofletters.uchip.content.drone.DroneRenderer;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.entry.EntityEntry;
@@ -14,8 +14,8 @@ public class MicrochipEntityTypes {
 
     private static final Registrate REGISTRATE = Microchip.REGISTRATE.get();
 
-    public static final EntityEntry<DroneEntity> DRONE = REGISTRATE.entity("drone", DroneEntity::new, MobCategory.CREATURE)
-            .attributes(DroneEntity::createAttributes)
+    public static final EntityEntry<Drone> DRONE = REGISTRATE.entity("drone", Drone::new, MobCategory.CREATURE)
+            .attributes(Drone::createAttributes)
             .properties(b -> b.sized(0.8f, 0.2f))
             .renderer(() -> DroneRenderer::new)
             .loot((tables, type) -> tables.add(type, LootTable.lootTable()

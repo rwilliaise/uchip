@@ -31,7 +31,7 @@ public class DroneItem extends Item {
         Level level = pContext.getLevel();
         Vec3 loc = pContext.getClickLocation();
         ItemStack stack = pContext.getItemInHand();
-        DroneEntity entity = Objects.requireNonNull(MicrochipEntityTypes.DRONE.create(level));
+        Drone entity = Objects.requireNonNull(MicrochipEntityTypes.DRONE.create(level));
         entity.setPos(loc);
         level.addFreshEntity(entity);
         stack.shrink(1);
