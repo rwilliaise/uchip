@@ -1,12 +1,11 @@
 package com.alotofletters.uchip.content.drone;
 
-import com.alotofletters.uchip.MicrochipItems;
-import com.alotofletters.uchip.MicrochipMenuTypes;
 import com.alotofletters.uchip.content.board.shell.Shell;
 import com.alotofletters.uchip.content.board.shell.ShellType;
 import com.alotofletters.uchip.foundation.board.Board;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -15,18 +14,12 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
-
-import javax.annotation.Nullable;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -91,24 +84,6 @@ public class Drone extends PathfinderMob implements Shell {
     }
 
     @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TemptGoal(this, 1.25f, Ingredient.of(MicrochipItems.PROCESSOR_6502.get()), false));
-        this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new FollowMobGoal(this, 1.0D, 3.0F, 8.0F));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
-    }
-
-    @Override
-    public float getVisualRotationYInDegrees() {
-        return super.getYRot();
-    }
-
-    @Override
-    public ItemStackHandler getContainer() {
-        return this.handler;
-    }
-
-    @Override
     public ShellType getShellType() {
         return ShellType.DRONE;
     }
@@ -118,6 +93,11 @@ public class Drone extends PathfinderMob implements Shell {
                 .add(Attributes.MAX_HEALTH, 5.0F)
                 .add(Attributes.FLYING_SPEED, 1.0F)
                 .add(Attributes.MOVEMENT_SPEED, 0.6F);
+    }
+
+    @Override
+    public void write(FriendlyByteBuf buf) {
+        buf.writeInt(this.getId());
     }
 }
 

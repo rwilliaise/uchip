@@ -8,7 +8,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.ItemStackHandler;
 
 public class ShellMenu extends AbstractContainerMenu {
     private Inventory playerInventory;
@@ -19,7 +18,7 @@ public class ShellMenu extends AbstractContainerMenu {
         if (buf == null) { return; }
 
         ShellType type = buf.readEnum(ShellType.class);
-        init(inventory, );
+        init(inventory, type.getShell.apply(inventory.player.level, buf));
 	}
 
     public ShellMenu(MenuType<?> menuType, int id, Inventory inventory, Shell shell) {

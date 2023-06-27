@@ -11,7 +11,7 @@ public enum ShellType {
 	CASING(ShellType::readCasing),
 	DRONE(ShellType::readDrone);
 
-    private BiFunction<Level, FriendlyByteBuf, Shell> getShell;
+    public final BiFunction<Level, FriendlyByteBuf, Shell> getShell;
 
 	private ShellType(BiFunction<Level, FriendlyByteBuf, Shell> getShell) {
         this.getShell = getShell;

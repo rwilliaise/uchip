@@ -63,7 +63,7 @@ public class DroneModel extends EntityModel<Drone> {
     }
 
     @Override
-    public void setupAnim(DroneEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
+    public void setupAnim(Drone pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
                           float pNetHeadYaw, float pHeadPitch) {
         float rot = (float) (pAgeInTicks * Math.max(pEntity.getDeltaMovement().y + 1, 0));
         northeast.yRot = rot;

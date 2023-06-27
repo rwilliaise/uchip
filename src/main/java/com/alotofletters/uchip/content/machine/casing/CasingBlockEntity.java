@@ -8,6 +8,7 @@ import com.alotofletters.uchip.foundation.board.Board;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -94,11 +95,6 @@ public class CasingBlockEntity extends BlockEntity implements Clearable, Shell {
     }
 
     @Override
-    public ItemStackHandler getContainer() {
-        return null;
-    }
-
-    @Override
     public ShellType getShellType() {
         return ShellType.CASING;
     }
@@ -107,5 +103,10 @@ public class CasingBlockEntity extends BlockEntity implements Clearable, Shell {
     public Component getDisplayName() {
         return MicrochipBlocks.CASING.get()
                 .getName();
+    }
+
+    @Override
+    public void write(FriendlyByteBuf buf) {
+        buf.writeBlockPos(getBlockPos());
     }
 }

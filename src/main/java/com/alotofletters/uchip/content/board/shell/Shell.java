@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import com.alotofletters.uchip.MicrochipMenuTypes;
 
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,11 +15,13 @@ import net.minecraftforge.network.NetworkHooks;
 
 public interface Shell extends MenuProvider {
     void setBoard(ItemStack stack);
+    void write(FriendlyByteBuf buf);
 	ShellType getShellType();
 
     default void openScreen(ServerPlayer player) {
 		NetworkHooks.openScreen(player, this, buf -> {
 			buf.writeEnum(getShellType());
+            this.write(buf);
 		});
 	}
     

@@ -11,7 +11,7 @@ public class DroneRenderer extends MobRenderer<Drone, DroneModel> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(DroneEntity pEntity) {
+    public ResourceLocation getTextureLocation(Drone pEntity) {
         return Microchip.location("textures/entity/drone.png");
     }
 }
