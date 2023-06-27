@@ -3,7 +3,7 @@ package com.alotofletters.uchip;
 import com.alotofletters.uchip.content.board.BoardItem;
 import com.alotofletters.uchip.content.board.memory.ram.RamItem;
 import com.alotofletters.uchip.content.board.memory.ram.RamType;
-import com.alotofletters.uchip.content.board.processor.MOS6502Item;
+import com.alotofletters.uchip.content.board.processor.mos6502.MOS6502Item;
 import com.alotofletters.uchip.content.drone.DroneItem;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.builders.ItemBuilder;

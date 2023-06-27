@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 
 public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
     private static final Style CHIP_FONT = Style.EMPTY.withFont(Microchip.location("chip"));
-    private static final ResourceLocation BOARD_LOCATION = Microchip.location("textures/gui/container/circuit_board.png");
+    private static final ResourceLocation TEXTURE = Microchip.location("textures/gui/container/circuit_board.png");
 
     private final Board board;
 
@@ -51,7 +51,7 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
     protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pX, int pY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, BOARD_LOCATION);
+        RenderSystem.setShaderTexture(0, TEXTURE);
         this.blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 

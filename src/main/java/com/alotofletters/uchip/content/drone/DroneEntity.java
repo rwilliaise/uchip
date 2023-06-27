@@ -2,7 +2,6 @@ package com.alotofletters.uchip.content.drone;
 
 import com.alotofletters.uchip.MicrochipItems;
 import com.alotofletters.uchip.foundation.board.Board;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.InteractionHand;
@@ -19,10 +18,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 public class DroneEntity extends PathfinderMob {
-    private ItemStack stack;
+    private ItemStackHandler handler = new ItemStackHandler(1);
     private Board board;
 
     public DroneEntity(EntityType<DroneEntity> pEntityType, Level pLevel) {
@@ -31,16 +31,16 @@ public class DroneEntity extends PathfinderMob {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag pCompound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.put("Board", stack.save(new CompoundTag()));
+        pCompound.put("Board", handler.serializeNBT());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         if (pCompound.contains("Board", Tag.TAG_COMPOUND)) {
-            stack = ItemStack.of(pCompound.getCompound("Board"));
+            this.handler.deserializeNBT(pCompound.getCompound("Board"));
         }
     }
 
@@ -56,6 +56,9 @@ public class DroneEntity extends PathfinderMob {
     protected InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack stack = pPlayer.getItemInHand(pHand);
         if (stack.is(MicrochipItems.BOARD.get())) {
+            if (!handler.getStackInSlot(0).isEmpty()) {
+                spawnAtLocation(handler.extractItem(0, 1, false));
+            }
             setBoard(stack);
             pPlayer.setItemInHand(pHand, ItemStack.EMPTY);
             return InteractionResult.sidedSuccess(level.isClientSide);
@@ -66,11 +69,11 @@ public class DroneEntity extends PathfinderMob {
     @Override
     protected void dropEquipment() {
         super.dropEquipment();
-        spawnAtLocation(this.stack);
+        spawnAtLocation(handler.extractItem(0, 1, false));
     }
 
     public void setBoard(ItemStack stack) {
-        this.stack = stack;
+        handler.setStackInSlot(0, stack);
         this.board = new Board(stack);
     }
 

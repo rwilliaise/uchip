@@ -2,6 +2,8 @@ package com.alotofletters.uchip;
 
 import com.alotofletters.uchip.content.board.BoardMenu;
 import com.alotofletters.uchip.content.board.BoardScreen;
+import com.alotofletters.uchip.content.board.shell.ShellMenu;
+import com.alotofletters.uchip.content.board.shell.ShellScreen;
 import com.alotofletters.uchip.content.machine.chip_builder.ChipBuilderMenu;
 import com.alotofletters.uchip.content.machine.chip_builder.ChipBuilderScreen;
 import com.tterrag.registrate.Registrate;
@@ -16,6 +18,9 @@ public class MicrochipMenuTypes {
 
     public static final MenuEntry<BoardMenu> BOARD = REGISTRATE.menu("board", BoardMenu::new, () -> BoardScreen::new)
             .register();
+
+	public static final MenuEntry<ShellMenu> SHELL = REGISTRATE.menu("shell", ShellMenu::new, () -> ShellScreen::new)
+			.register();
 
     public static void register() {
     }
