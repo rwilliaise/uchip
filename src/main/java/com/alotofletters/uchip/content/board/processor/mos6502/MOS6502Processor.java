@@ -165,20 +165,49 @@ public class MOS6502Processor extends Processor {
 	private void asla() {
 		updateLeftC(this.accumulator);
 		this.accumulator <<= 1;
+		updateNZ(this.accumulator);
 	}
+
 	private void asl() {
 		updateLeftC(this.value);
-		this.write(this.address, this.value << 1);
+		this.write(this.address, this.value <<= 1);
+		updateNZ(this.value);
 	}
 
 	private void lsra() {
 		updateRightC(this.accumulator);
-		this.accumulator >>= 1;
+		this.accumulator >>>= 1;
+		updateNZ(this.accumulator);
 	}
 
 	private void lsr() {
-		updateRightC(this.accumulator);
-		this.write(this.address, this.value >> 1);
+		updateRightC(this.value);
+		this.write(this.address, this.value >>> 1);
+		updateNZ(this.value);
+	}
+
+	private void rola() {
+		updateLeftC(this.accumulator);
+		this.accumulator = (byte) ((this.accumulator << 1) | (this.accumulator >>> 7));
+		updateNZ(this.accumulator);
+	}
+
+	private void rol() {
+		updateLeftC(this.value);
+		this.value = (byte) ((this.value << 1) | (this.value >>> 7));
+		updateNZ(this.value);
+	}
+
+	private void rora() {
+		updateLeftC(this.accumulator);
+		this.accumulator = (byte) ((this.accumulator >>> 1) | (this.accumulator << 7));
+		updateNZ(this.accumulator);
+	}
+
+	private void ror() {
+		updateLeftC(this.value);
+		this.value = (byte) ((this.value >>> 1) | (this.value << 7));
+		updateNZ(this.value);
 	}
 
 	private void nop() { cycles++; } // 2 cycles
@@ -234,37 +263,37 @@ public class MOS6502Processor extends Processor {
 		// load
         instruction(0xa9, MOS6502Processor::lda, MOS6502Processor::immediate);
 		instruction(0xad, MOS6502Processor::lda, MOS6502Processor::absolute);
-		instruction(0xbd, MOS6502Processor::lda, MOS6502Processor.absolute(MOS6502Processor::getX)); // x-indexed absolute
-		instruction(0xb9, MOS6502Processor::lda, MOS6502Processor.absolute(MOS6502Processor::getY)); // y-indexed absolute
+		instruction(0xbd, MOS6502Processor::lda, MOS6502Processor.absolute(MOS6502Processor::getX));
+		instruction(0xb9, MOS6502Processor::lda, MOS6502Processor.absolute(MOS6502Processor::getY));
 		instruction(0xa5, MOS6502Processor::lda, MOS6502Processor::zeroPage);
-		instruction(0xb5, MOS6502Processor::lda, MOS6502Processor.zeroPage(MOS6502Processor::getX)); // x-indexed zero page
+		instruction(0xb5, MOS6502Processor::lda, MOS6502Processor.zeroPage(MOS6502Processor::getX));
 		// TODO: x-indexed zero page indirect
 		// TODO: zero page indirect y-indexed
         instruction(0xa2, MOS6502Processor::ldx, MOS6502Processor::immediate);
 		instruction(0xae, MOS6502Processor::ldx, MOS6502Processor::absolute);
-		instruction(0xa6, MOS6502Processor::ldx, MOS6502Processor.absolute(MOS6502Processor::getY)); // y-indexed absolute
+		instruction(0xa6, MOS6502Processor::ldx, MOS6502Processor.absolute(MOS6502Processor::getY));
 		instruction(0xb6, MOS6502Processor::ldx, MOS6502Processor::zeroPage);
-		instruction(0xb6, MOS6502Processor::ldx, MOS6502Processor.zeroPage(MOS6502Processor::getY)); // y-indexed zero page
+		instruction(0xb6, MOS6502Processor::ldx, MOS6502Processor.zeroPage(MOS6502Processor::getY));
         instruction(0xa0, MOS6502Processor::ldy, MOS6502Processor::immediate);
 		instruction(0xac, MOS6502Processor::ldy, MOS6502Processor::absolute);
-		instruction(0xbc, MOS6502Processor::ldy, MOS6502Processor.absolute(MOS6502Processor::getX)); // x-indexed absolute
+		instruction(0xbc, MOS6502Processor::ldy, MOS6502Processor.absolute(MOS6502Processor::getX));
 		instruction(0xa4, MOS6502Processor::ldy, MOS6502Processor::zeroPage);
-		instruction(0xb4, MOS6502Processor::ldy, MOS6502Processor.zeroPage(MOS6502Processor::getX)); // x-indexed zero page
+		instruction(0xb4, MOS6502Processor::ldy, MOS6502Processor.zeroPage(MOS6502Processor::getX));
 		
 		// store
 		instruction(0x8d, MOS6502Processor::sta, MOS6502Processor::absolute);
-		instruction(0x9d, MOS6502Processor::sta, MOS6502Processor.absolute(MOS6502Processor::getX)); // x-indexed absolute
-		instruction(0x99, MOS6502Processor::sta, MOS6502Processor.absolute(MOS6502Processor::getY)); // y-indexed absolute
+		instruction(0x9d, MOS6502Processor::sta, MOS6502Processor.absolute(MOS6502Processor::getX));
+		instruction(0x99, MOS6502Processor::sta, MOS6502Processor.absolute(MOS6502Processor::getY));
 		instruction(0x85, MOS6502Processor::sta, MOS6502Processor::zeroPage);
-		instruction(0x95, MOS6502Processor::sta, MOS6502Processor.zeroPage(MOS6502Processor::getX)); // x-indexed zero-page
+		instruction(0x95, MOS6502Processor::sta, MOS6502Processor.zeroPage(MOS6502Processor::getX));
 		// TODO: x-indexed zero page indirect
 		// TODO: zero page indirect y-indexed
 		instruction(0x8e, MOS6502Processor::stx, MOS6502Processor::absolute);
 		instruction(0x86, MOS6502Processor::stx, MOS6502Processor::zeroPage);
-		instruction(0x96, MOS6502Processor::stx, MOS6502Processor.zeroPage(MOS6502Processor::getY)); // y-indexed zero page
+		instruction(0x96, MOS6502Processor::stx, MOS6502Processor.zeroPage(MOS6502Processor::getY));
 		instruction(0x8c, MOS6502Processor::sty, MOS6502Processor::absolute);
 		instruction(0x84, MOS6502Processor::sty, MOS6502Processor::zeroPage);
-		instruction(0x94, MOS6502Processor::sty, MOS6502Processor.zeroPage(MOS6502Processor::getX)); // x-indexed zero page
+		instruction(0x94, MOS6502Processor::sty, MOS6502Processor.zeroPage(MOS6502Processor::getX));
 
 		// transfer
 		instruction(0xaa, MOS6502Processor::tax);
@@ -281,6 +310,26 @@ public class MOS6502Processor extends Processor {
 		instruction(0x28, MOS6502Processor::plp);
 
 		// shifts
+		instruction(0x0a, MOS6502Processor::asla);
+		instruction(0x0e, MOS6502Processor::asl, MOS6502Processor::absolute);
+		instruction(0x06, MOS6502Processor::asl, MOS6502Processor::zeroPage);
+		instruction(0x1e, MOS6502Processor::asl, MOS6502Processor.absolute(MOS6502Processor::getX));
+		instruction(0x16, MOS6502Processor::asl, MOS6502Processor.zeroPage(MOS6502Processor::getX));
+		instruction(0x4a, MOS6502Processor::lsra);
+		instruction(0x4e, MOS6502Processor::lsr, MOS6502Processor::absolute);
+		instruction(0x46, MOS6502Processor::lsr, MOS6502Processor::zeroPage);
+		instruction(0x5e, MOS6502Processor::lsr, MOS6502Processor.absolute(MOS6502Processor::getX));
+		instruction(0x56, MOS6502Processor::lsr, MOS6502Processor.zeroPage(MOS6502Processor::getX));
+		instruction(0x2a, MOS6502Processor::rola);
+		instruction(0x2e, MOS6502Processor::rol, MOS6502Processor::absolute);
+		instruction(0x26, MOS6502Processor::rol, MOS6502Processor::zeroPage);
+		instruction(0x3e, MOS6502Processor::rol, MOS6502Processor.absolute(MOS6502Processor::getX));
+		instruction(0x36, MOS6502Processor::rol, MOS6502Processor.zeroPage(MOS6502Processor::getX));
+		instruction(0x6a, MOS6502Processor::rora);
+		instruction(0x6e, MOS6502Processor::ror, MOS6502Processor::absolute);
+		instruction(0x66, MOS6502Processor::ror, MOS6502Processor::zeroPage);
+		instruction(0x7e, MOS6502Processor::ror, MOS6502Processor.absolute(MOS6502Processor::getX));
+		instruction(0x76, MOS6502Processor::ror, MOS6502Processor.zeroPage(MOS6502Processor::getX));
 
 		// nop
 		instruction(0xea, MOS6502Processor::nop);
