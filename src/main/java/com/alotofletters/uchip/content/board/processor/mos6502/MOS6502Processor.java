@@ -78,16 +78,16 @@ public class MOS6502Processor extends Processor {
         return 16;
     }
 
-	private byte updateNZ(byte value) {
-		if (value == 0)
-			flags |= ZERO;
+	private void setFlag(int mask, boolean cond) {
+		if (cond)
+			flags |= mask;
 		else
-			flags &= ~ZERO;
+			flags &= ~mask;
+	}
 
-		if (value < 0)
-			flags |= NEGATIVE;
-		else
-			flags &= ~NEGATIVE;
+	private byte updateNZ(byte value) {
+		setFlag(ZERO, value == 0);
+		setFlag(NEGATIVE, value < 0);
 		return value;
 	}
 
@@ -149,17 +149,11 @@ public class MOS6502Processor extends Processor {
 
 	// arithmetic shift and logical shift
 	private void updateLeftC(byte value) {
-		if (value < 0) // testing bit 7 (neat hack)
-			this.flags |= CARRY;
-		else 
-			this.flags &= ~CARRY;
+		setFlag(CARRY, value < 0);
 	}
 
 	private void updateRightC(byte value) {
-		if ((value & 1) != 0) // bit 0 goes into carry
-			this.flags |= CARRY;
-		else
-			this.flags &= ~CARRY;
+		setFlag(CARRY, (value & 1) != 0);
 	}
 
 	private void asla() {
@@ -209,6 +203,16 @@ public class MOS6502Processor extends Processor {
 		this.value = (byte) ((this.value >>> 1) | (this.value << 7));
 		updateNZ(this.value);
 	}
+
+	private void and() { updateNZ(this.accumulator &= this.value); }
+	private void bit() {
+		byte value = (byte) (this.accumulator & this.value);
+		setFlag(NEGATIVE, this.value < 0);
+		setFlag(OVERFLOW, (this.value & OVERFLOW) != 0);
+		setFlag(ZERO, value == 0);
+	}
+	private void eor() { updateNZ(this.accumulator ^= this.value); }
+	private void ora() { updateNZ(this.accumulator |= this.value); }
 
 	private void nop() { cycles++; } // 2 cycles
 
@@ -331,6 +335,34 @@ public class MOS6502Processor extends Processor {
 		instruction(0x7e, MOS6502Processor::ror, MOS6502Processor.absolute(MOS6502Processor::getX));
 		instruction(0x76, MOS6502Processor::ror, MOS6502Processor.zeroPage(MOS6502Processor::getX));
 
+		// bit ops
+        instruction(0x29, MOS6502Processor::and, MOS6502Processor::immediate);
+		instruction(0x2d, MOS6502Processor::and, MOS6502Processor::absolute);
+		instruction(0x3d, MOS6502Processor::and, MOS6502Processor.absolute(MOS6502Processor::getX));
+		instruction(0x39, MOS6502Processor::and, MOS6502Processor.absolute(MOS6502Processor::getY));
+		instruction(0x25, MOS6502Processor::and, MOS6502Processor::zeroPage);
+		instruction(0x35, MOS6502Processor::and, MOS6502Processor.zeroPage(MOS6502Processor::getX));
+		// TODO: x-indexed zero page indirect
+		// TODO: zero page indirect y-indexed
+		instruction(0x2c, MOS6502Processor::bit, MOS6502Processor::absolute);
+		instruction(0x24, MOS6502Processor::bit, MOS6502Processor::zeroPage);
+        instruction(0x49, MOS6502Processor::eor, MOS6502Processor::immediate);
+		instruction(0x4d, MOS6502Processor::eor, MOS6502Processor::absolute);
+		instruction(0x5d, MOS6502Processor::eor, MOS6502Processor.absolute(MOS6502Processor::getX));
+		instruction(0x59, MOS6502Processor::eor, MOS6502Processor.absolute(MOS6502Processor::getY));
+		instruction(0x45, MOS6502Processor::eor, MOS6502Processor::zeroPage);
+		instruction(0x55, MOS6502Processor::eor, MOS6502Processor.zeroPage(MOS6502Processor::getX));
+		// TODO: x-indexed zero page indirect
+		// TODO: zero page indirect y-indexed
+        instruction(0x09, MOS6502Processor::ora, MOS6502Processor::immediate);
+		instruction(0x0d, MOS6502Processor::ora, MOS6502Processor::absolute);
+		instruction(0x1d, MOS6502Processor::ora, MOS6502Processor.absolute(MOS6502Processor::getX));
+		instruction(0x19, MOS6502Processor::ora, MOS6502Processor.absolute(MOS6502Processor::getY));
+		instruction(0x05, MOS6502Processor::ora, MOS6502Processor::zeroPage);
+		instruction(0x15, MOS6502Processor::ora, MOS6502Processor.zeroPage(MOS6502Processor::getX));
+		// TODO: x-indexed zero page indirect
+		// TODO: zero page indirect y-indexed
+		
 		// nop
 		instruction(0xea, MOS6502Processor::nop);
     }
