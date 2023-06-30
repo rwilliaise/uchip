@@ -1,4 +1,4 @@
-package com.alotofletters.uchip.foundation.net;
+package com.alotofletters.uchip.core.net;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;

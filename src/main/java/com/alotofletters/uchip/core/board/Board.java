@@ -1,4 +1,4 @@
-package com.alotofletters.uchip.foundation.board;
+package com.alotofletters.uchip.core.board;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -58,6 +58,9 @@ public class Board {
         }
     }
 
+	/**
+	 * Puts a component into the board.
+	 */
     public boolean equipComponent(BoardComponent component) {
         if (component instanceof Processor processor) {
             if (this.processor != null) {
@@ -67,6 +70,7 @@ public class Board {
             this.processor = processor;
             return true;
         }
+		
         components.add(new RangedComponent(component, 0, (int) Math.pow(2, component.getAddressWidth())));
         return true;
     }

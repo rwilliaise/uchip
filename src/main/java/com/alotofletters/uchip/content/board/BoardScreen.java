@@ -1,7 +1,7 @@
 package com.alotofletters.uchip.content.board;
 
 import com.alotofletters.uchip.Microchip;
-import com.alotofletters.uchip.foundation.board.Board;
+import com.alotofletters.uchip.core.board.Board;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;

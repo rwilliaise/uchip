@@ -1,8 +1,5 @@
 package com.alotofletters.uchip.content.drone;
 
-import com.alotofletters.uchip.content.board.shell.Shell;
-import com.alotofletters.uchip.content.board.shell.ShellType;
-import com.alotofletters.uchip.foundation.board.Board;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -22,6 +19,10 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
 
 import org.jetbrains.annotations.NotNull;
+
+import com.alotofletters.uchip.content.machine.shell.Shell;
+import com.alotofletters.uchip.content.machine.shell.ShellType;
+import com.alotofletters.uchip.core.board.Board;
 
 public class Drone extends PathfinderMob implements Shell {
     private ItemStackHandler handler = new ItemStackHandler(1);

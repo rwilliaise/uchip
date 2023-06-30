@@ -1,7 +1,7 @@
 package com.alotofletters.uchip.content.board.memory.ram;
 
-import com.alotofletters.uchip.foundation.board.Board;
-import com.alotofletters.uchip.foundation.board.BoardComponent;
+import com.alotofletters.uchip.core.board.Board;
+import com.alotofletters.uchip.core.board.BoardComponent;
 import com.google.common.collect.Maps;
 import net.minecraft.world.item.ItemStack;
 

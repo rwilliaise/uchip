@@ -1,6 +1,5 @@
 package com.alotofletters.uchip;
 
-import com.alotofletters.uchip.foundation.net.MicrochipPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
@@ -8,6 +7,8 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.util.function.Function;
+
+import com.alotofletters.uchip.core.net.MicrochipPacket;
 
 public class MicrochipPackets {
 

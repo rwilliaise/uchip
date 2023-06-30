@@ -1,4 +1,4 @@
-package com.alotofletters.uchip.content.board.shell;
+package com.alotofletters.uchip.content.machine.shell;
 
 import com.alotofletters.uchip.Microchip;
 import com.mojang.blaze3d.vertex.PoseStack;

@@ -1,4 +1,4 @@
-package com.alotofletters.uchip.content.board.shell;
+package com.alotofletters.uchip.content.machine.shell;
 
 import org.jetbrains.annotations.Nullable;
 

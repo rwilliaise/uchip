@@ -2,10 +2,10 @@ package com.alotofletters.uchip;
 
 import com.alotofletters.uchip.content.board.BoardMenu;
 import com.alotofletters.uchip.content.board.BoardScreen;
-import com.alotofletters.uchip.content.board.shell.ShellMenu;
-import com.alotofletters.uchip.content.board.shell.ShellScreen;
 import com.alotofletters.uchip.content.machine.chip_builder.ChipBuilderMenu;
 import com.alotofletters.uchip.content.machine.chip_builder.ChipBuilderScreen;
+import com.alotofletters.uchip.content.machine.shell.ShellMenu;
+import com.alotofletters.uchip.content.machine.shell.ShellScreen;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.entry.MenuEntry;
 

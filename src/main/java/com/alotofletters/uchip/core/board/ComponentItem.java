@@ -1,4 +1,4 @@
-package com.alotofletters.uchip.foundation.board;
+package com.alotofletters.uchip.core.board;
 
 import com.alotofletters.uchip.MicrochipLang;
 import net.minecraft.ChatFormatting;

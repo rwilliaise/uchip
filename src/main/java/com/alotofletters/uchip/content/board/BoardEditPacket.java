@@ -1,7 +1,8 @@
 package com.alotofletters.uchip.content.board;
 
-import com.alotofletters.uchip.foundation.board.Board;
-import com.alotofletters.uchip.foundation.net.MicrochipPacket;
+import com.alotofletters.uchip.core.board.Board;
+import com.alotofletters.uchip.core.net.MicrochipPacket;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

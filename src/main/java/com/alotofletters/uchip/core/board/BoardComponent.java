@@ -1,4 +1,4 @@
-package com.alotofletters.uchip.foundation.board;
+package com.alotofletters.uchip.core.board;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;

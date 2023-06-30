@@ -1,7 +1,7 @@
 package com.alotofletters.uchip.content.board.via;
 
-import com.alotofletters.uchip.foundation.board.Board;
-import com.alotofletters.uchip.foundation.board.BoardComponent;
+import com.alotofletters.uchip.core.board.Board;
+import com.alotofletters.uchip.core.board.BoardComponent;
 
 import net.minecraft.world.item.ItemStack;
 

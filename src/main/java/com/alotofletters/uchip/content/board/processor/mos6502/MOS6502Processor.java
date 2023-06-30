@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import com.alotofletters.uchip.foundation.board.Board;
-import com.alotofletters.uchip.foundation.board.Processor;
+import com.alotofletters.uchip.core.board.Board;
+import com.alotofletters.uchip.core.board.Processor;
 import com.google.common.collect.Maps;
 
 import net.minecraft.world.item.ItemStack;

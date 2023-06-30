@@ -1,7 +1,8 @@
 package com.alotofletters.uchip.content.board;
 
-import com.alotofletters.uchip.foundation.board.Board;
-import com.alotofletters.uchip.foundation.gui.ItemMenu;
+import com.alotofletters.uchip.core.board.Board;
+import com.alotofletters.uchip.core.gui.ItemMenu;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

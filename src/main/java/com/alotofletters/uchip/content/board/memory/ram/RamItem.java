@@ -1,7 +1,8 @@
 package com.alotofletters.uchip.content.board.memory.ram;
 
-import com.alotofletters.uchip.foundation.board.Board;
-import com.alotofletters.uchip.foundation.board.ComponentItem;
+import com.alotofletters.uchip.core.board.Board;
+import com.alotofletters.uchip.core.board.ComponentItem;
+
 import net.minecraft.world.item.ItemStack;
 
 public class RamItem extends ComponentItem<RamComponent> {

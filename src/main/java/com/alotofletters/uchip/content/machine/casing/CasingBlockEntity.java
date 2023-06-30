@@ -2,9 +2,10 @@ package com.alotofletters.uchip.content.machine.casing;
 
 import com.alotofletters.uchip.MicrochipBlocks;
 import com.alotofletters.uchip.content.board.BoardItem;
-import com.alotofletters.uchip.content.board.shell.Shell;
-import com.alotofletters.uchip.content.board.shell.ShellType;
-import com.alotofletters.uchip.foundation.board.Board;
+import com.alotofletters.uchip.content.machine.shell.Shell;
+import com.alotofletters.uchip.content.machine.shell.ShellType;
+import com.alotofletters.uchip.core.board.Board;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

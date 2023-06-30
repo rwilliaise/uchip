@@ -1,4 +1,4 @@
-package com.alotofletters.uchip.foundation.gui;
+package com.alotofletters.uchip.core.gui;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
