@@ -102,6 +102,14 @@ public class MOS6502Processor extends Processor {
 		this.value = read(this.address);
 	}
 
+    private void absoluteIndirect() {
+        short address = readAbsolute(0);
+        short highAddress = (short) (address + 1);
+        if ((Short.toUnsignedInt(address) & 0xff) == 0xff) { highAddress = (short) (address ^ 0xff); }
+        this.address = (short) (read(address) | (read(address + 1) << 8));
+        this.value = read(this.address);
+    }
+
 	private static Consumer<MOS6502Processor> absolute(Function<MOS6502Processor, Byte> index) {
 		return (p) -> {
 			p.address = p.readAbsolute(index.apply(p)); // TODO: extra cycle when going over pages
@@ -120,6 +128,10 @@ public class MOS6502Processor extends Processor {
 			p.value = p.read(p.address);
 		};
 	}
+
+    private void indexedZeroPageIndirect() {
+
+    }
 
 	// load
     private void lda() { this.accumulator = updateNZ(this.value); }
@@ -242,12 +254,10 @@ public class MOS6502Processor extends Processor {
     private void brk() {
         push((byte) (programCounter >>> 8));
         push((byte) programCounter);
-        programCounter = (short) (((short) read(0xfffe)) | ((short) read(0xffff) << 8)); // :__:
+        programCounter = (short) (read(0xfffe) | (read(0xffff) << 8));
         setFlag(INTERRUPT_DISABLE, true);
     }
-    private void jmp() {
-
-    }
+    private void jmp() { this.programCounter = this.address; }
 
 	private void nop() { cycles++; } // 2 cycles
 
