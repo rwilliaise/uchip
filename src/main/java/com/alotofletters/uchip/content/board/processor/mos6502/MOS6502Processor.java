@@ -263,11 +263,12 @@ public class MOS6502Processor extends Processor {
 
 	// stack operations
 	private void push(byte value) {
-		owner.write(Byte.toUnsignedInt(stackPointer--), value);
+		cycles++;
+		owner.write(0x0100 & Byte.toUnsignedInt(stackPointer--), value);
 	}
 
 	private byte pull() {
-		return read((short) Byte.toUnsignedInt(stackPointer++));
+		return read((short) (0x0100 & Byte.toUnsignedInt(stackPointer++)));
 	}
 
 	// reading addresses from memory 
@@ -290,7 +291,8 @@ public class MOS6502Processor extends Processor {
 	}
 
 	private void write(short address, byte value) {
-		owner.write(Short.toUnsignedInt(address), Byte.toUnsignedInt(value));
+		cycles++;
+		owner.write(Short.toUnsignedInt(address), value);
 	}
 
     private byte read() {
@@ -364,7 +366,7 @@ public class MOS6502Processor extends Processor {
         whole(0x80, MOS6502Processor::sta);
 		instruction(0x8e, MOS6502Processor::stx, MOS6502Processor::absolute);
 		instruction(0x86, MOS6502Processor::stx, MOS6502Processor::zeroPage);
-		instruction(0x96, MOS6502Processor::stx, MOS6502Processor.zeroPage(p -> p.y));
+		instruction(0x96, MOS6502Processor::stx, MOS6502Processor.zeroPage(p -> p.y)); // -3648, 3696 - 6040 3536
 		instruction(0x8c, MOS6502Processor::sty, MOS6502Processor::absolute);
 		instruction(0x84, MOS6502Processor::sty, MOS6502Processor::zeroPage);
 		instruction(0x94, MOS6502Processor::sty, MOS6502Processor.zeroPage(p -> p.x));
@@ -384,7 +386,7 @@ public class MOS6502Processor extends Processor {
 		instruction(0x28, MOS6502Processor::plp);
 
 		// shifts
-        shift(0xa0, MOS6502Processor::asla, MOS6502Processor::asl);
+        shift(0x00, MOS6502Processor::asla, MOS6502Processor::asl);
         shift(0x40, MOS6502Processor::lsra, MOS6502Processor::lsr);
         shift(0x20, MOS6502Processor::rola, MOS6502Processor::rol);
         shift(0x60, MOS6502Processor::rora, MOS6502Processor::ror);
