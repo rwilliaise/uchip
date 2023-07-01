@@ -9,14 +9,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class ShellScreen extends AbstractContainerScreen<ShellMenu> {
-	private static final ResourceLocation TEXTURE = Microchip.location("textures/gui/container/shell.png");
+    private static final ResourceLocation TEXTURE = Microchip.location("textures/gui/container/shell.png");
 
-	public ShellScreen(ShellMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-		super(pMenu, pPlayerInventory, pTitle);
-	}
+    public ShellScreen(ShellMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
+        super(pMenu, pPlayerInventory, pTitle);
+    }
 
-	@Override
-	protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
-		
-	}
+    @Override
+    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+
+    }
 }

@@ -1,5 +1,8 @@
 package com.alotofletters.uchip.content.drone;
 
+import com.alotofletters.uchip.content.machine.shell.Shell;
+import com.alotofletters.uchip.content.machine.shell.ShellType;
+import com.alotofletters.uchip.core.board.Board;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -7,7 +10,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -17,15 +22,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
-
 import org.jetbrains.annotations.NotNull;
 
-import com.alotofletters.uchip.content.machine.shell.Shell;
-import com.alotofletters.uchip.content.machine.shell.ShellType;
-import com.alotofletters.uchip.core.board.Board;
-
 public class Drone extends PathfinderMob implements Shell {
-    private ItemStackHandler handler = new ItemStackHandler(1);
+    private final ItemStackHandler handler = new ItemStackHandler(1);
     private Board board;
 
     public Drone(EntityType<Drone> pEntityType, Level pLevel) {

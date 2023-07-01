@@ -1,19 +1,19 @@
 package com.alotofletters.uchip.content.machine.shell;
 
-import java.util.function.BiFunction;
-
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
 import com.alotofletters.uchip.content.drone.Drone;
 import com.alotofletters.uchip.content.machine.casing.CasingBlockEntity;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
+
+import java.util.function.BiFunction;
 
 public enum ShellType {
-	CASING(ShellType::readCasing),
-	DRONE(ShellType::readDrone);
+    CASING(ShellType::readCasing),
+    DRONE(ShellType::readDrone);
 
     public final BiFunction<Level, FriendlyByteBuf, Shell> getShell;
 
-	private ShellType(BiFunction<Level, FriendlyByteBuf, Shell> getShell) {
+    ShellType(BiFunction<Level, FriendlyByteBuf, Shell> getShell) {
         this.getShell = getShell;
     }
 
