@@ -16,15 +16,8 @@ public abstract class BoardComponent {
         this.owner = owner;
         this.stack = stack;
 
-        load(stack.getOrCreateTag());
-    }
-
-    public Board getOwner() {
-        return owner;
-    }
-
-    public ItemStack getStack() {
-        return stack;
+        if (!stack.isEmpty())
+            load(stack.getOrCreateTag());
     }
 
     public int read(int address) {

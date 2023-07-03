@@ -45,14 +45,14 @@ public class MOS6502Processor extends Processor {
             cycles--;
             return true;
         }
-        cycles = -1;
+        // +1 cycle, at least 2 cycles per instruction (since this cycle we just read next op from memory)
         byte op = read();
         Consumer<MOS6502Processor> cons = INSTRUCTIONS.get(op);
         if (cons != null) {
             cons.accept(this);
             return true;
         }
-        return false;
+        return false; // for illegal ops just hard crash, for now
     }
 
     @Override
@@ -85,6 +85,10 @@ public class MOS6502Processor extends Processor {
             flags &= ~mask;
     }
 
+    private boolean testFlag(int mask) {
+        return (flags & mask) != 0;
+    }
+
     private byte updateNZ(byte value) {
         setFlag(ZERO, value == 0);
         setFlag(NEGATIVE, value < 0);
@@ -107,7 +111,7 @@ public class MOS6502Processor extends Processor {
         if ((Short.toUnsignedInt(address) & 0xff) == 0xff) {
             highAddress = (short) (address ^ 0xff);
         }
-        this.address = (short) (read(address) | (read(address + 1) << 8));
+        this.address = (short) (read(address) | (read(highAddress) << 8));
         this.value = read(this.address);
     }
 
@@ -128,6 +132,25 @@ public class MOS6502Processor extends Processor {
             p.address = p.readZeroPage(index.apply(p));
             p.value = p.read(p.address);
         };
+    }
+
+    private void xIndexedZeroPageIndirect() {
+        byte indirect = (byte) (x + read());
+        this.address = read(indirect);
+        this.address |= read((byte) (indirect + 1)) << 8;
+        this.value = read(this.address);
+    }
+
+    private void zeroPageIndirectYIndexed() {
+        short indirect = (short) (y + read());
+        this.address = read(indirect);
+        this.address |= read((short) (indirect + 1)) << 8;
+        this.value = read(this.address);
+    }
+
+    private void relative() {
+        this.address = (short) (this.programCounter + read());
+        this.value = read(this.address);
     }
 
     private void indexedZeroPageIndirect() {
@@ -231,7 +254,7 @@ public class MOS6502Processor extends Processor {
 
     private void lsr() {
         updateRightC(this.value);
-        this.write(this.address, this.value >>> 1);
+        this.write(this.address, (byte) (this.value >>> 1));
         updateNZ(this.value);
     }
 
@@ -316,8 +339,8 @@ public class MOS6502Processor extends Processor {
 
     private void inc() {
         this.write(this.address, updateNZ(++this.value));
-        cycles += 2;
-    } // :i_:
+        cycles += 2; // :i_:
+    }
 
     private void inx() {
         updateNZ(++this.x);
@@ -330,14 +353,28 @@ public class MOS6502Processor extends Processor {
     }
 
     private void brk() {
-        push((byte) (programCounter >>> 8));
-        push((byte) programCounter);
-        programCounter = (short) (read(0xfffe) | (read(0xffff) << 8));
+        this.push(programCounter);
+        programCounter = (short) (read((short) 0xfffe) | (read((short) 0xffff) << 8)); // 0x notation is int by default
         setFlag(INTERRUPT_DISABLE, true);
     }
 
     private void jmp() {
         this.programCounter = this.address;
+    }
+
+    private void jsr() {
+        this.push(programCounter);
+        this.programCounter = this.address;
+    }
+
+    private void rti() {
+        flags = pull();
+        programCounter = pullShort();
+    }
+
+    private void rts() {
+        programCounter = pullShort();
+        programCounter++;
     }
 
     private void nop() {
@@ -347,11 +384,22 @@ public class MOS6502Processor extends Processor {
     // stack operations
     private void push(byte value) {
         cycles++;
-        owner.write(0x0100 | Byte.toUnsignedInt(stackPointer--), value);
+        owner.write(0x0100 | Byte.toUnsignedInt(stackPointer--), value); // page 1
+    }
+
+    private void push(short value) {
+        push((byte) (value >>> 8));
+        push((byte) (value));
     }
 
     private byte pull() {
-        return read((short) (0x0100 | Byte.toUnsignedInt(stackPointer++)));
+        return read((short) (0x0100 | Byte.toUnsignedInt(stackPointer++))); // page 1
+    }
+
+    private short pullShort() {
+        short value = pull();
+        value |= ((short) pull()) << 8;
+        return value;
     }
 
     // reading addresses from memory
@@ -398,14 +446,14 @@ public class MOS6502Processor extends Processor {
 
     private static void whole(int low, Consumer<MOS6502Processor> cons) {
         int high = low + 0x10;
-        instruction(low | 0x09, MOS6502Processor::lda, MOS6502Processor::immediate);
-        instruction(low | 0x0d, MOS6502Processor::lda, MOS6502Processor::absolute);
-        instruction(high | 0x09, MOS6502Processor::lda, MOS6502Processor.absolute(p -> p.y));
-        instruction(high | 0x0d, MOS6502Processor::lda, MOS6502Processor.absolute(p -> p.x));
-        instruction(low | 0x05, MOS6502Processor::lda, MOS6502Processor::zeroPage);
-        instruction(high | 0x05, MOS6502Processor::lda, MOS6502Processor.zeroPage(p -> p.x));
-        // TODO: x-indexed zero page indirect
-        // TODO: zero page indirect y-indexed
+        instruction(low | 0x09, cons, MOS6502Processor::immediate);
+        instruction(low | 0x0d, cons, MOS6502Processor::absolute);
+        instruction(high | 0x09, cons, MOS6502Processor.absolute(p -> p.y));
+        instruction(high | 0x0d, cons, MOS6502Processor.absolute(p -> p.x));
+        instruction(low | 0x05, cons, MOS6502Processor::zeroPage);
+        instruction(high | 0x05, cons, MOS6502Processor.zeroPage(p -> p.x));
+        instruction(low | 0x01, cons, MOS6502Processor::xIndexedZeroPageIndirect);
+        instruction(high | 0x01, cons, MOS6502Processor::zeroPageIndirectYIndexed);
     }
 
     private static void mini(int low, Consumer<MOS6502Processor> cons) {
@@ -449,7 +497,7 @@ public class MOS6502Processor extends Processor {
         whole(0x80, MOS6502Processor::sta);
         instruction(0x8e, MOS6502Processor::stx, MOS6502Processor::absolute);
         instruction(0x86, MOS6502Processor::stx, MOS6502Processor::zeroPage);
-        instruction(0x96, MOS6502Processor::stx, MOS6502Processor.zeroPage(p -> p.y)); // -3648, 3696 - 6040 3536
+        instruction(0x96, MOS6502Processor::stx, MOS6502Processor.zeroPage(p -> p.y));
         instruction(0x8c, MOS6502Processor::sty, MOS6502Processor::absolute);
         instruction(0x84, MOS6502Processor::sty, MOS6502Processor::zeroPage);
         instruction(0x94, MOS6502Processor::sty, MOS6502Processor.zeroPage(p -> p.x));
@@ -498,6 +546,11 @@ public class MOS6502Processor extends Processor {
 
         // jump/interrupt
         instruction(0x00, MOS6502Processor::brk);
+        instruction(0x4c, MOS6502Processor::jmp, MOS6502Processor::absolute);
+        instruction(0x6c, MOS6502Processor::jmp, MOS6502Processor::absoluteIndirect);
+        instruction(0x20, MOS6502Processor::jsr, MOS6502Processor::absolute);
+        instruction(0x40, MOS6502Processor::rti);
+        instruction(0x60, MOS6502Processor::rts);
 
         // nop
         instruction(0xea, MOS6502Processor::nop);

@@ -82,11 +82,11 @@ public class Board {
     public record RangedComponent(BoardComponent component, int from, int to) {
 
         public CompoundTag save(CompoundTag tag) {
-            CompoundTag component = this.component.getStack()
+            CompoundTag component = this.component.stack
                     .getOrCreateTag();
             this.component.save(component);
 
-            tag.put("Item", this.component.getStack().save(new CompoundTag()));
+            tag.put("Item", this.component.stack.save(new CompoundTag()));
 
             tag.putInt("From", from);
             tag.putInt("To", to);

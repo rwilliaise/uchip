@@ -1,6 +1,7 @@
 package com.alotofletters.uchip.content.board;
 
 import com.alotofletters.uchip.Microchip;
+import com.alotofletters.uchip.MicrochipClient;
 import com.alotofletters.uchip.core.board.Board;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -17,7 +18,6 @@ import net.minecraft.world.entity.player.Inventory;
 import java.util.regex.Pattern;
 
 public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
-    private static final Style CHIP_FONT = Style.EMPTY.withFont(Microchip.location("chip"));
     private static final ResourceLocation TEXTURE = Microchip.location("textures/gui/container/circuit_board.png");
 
     private final Board board;
@@ -65,18 +65,5 @@ public class BoardScreen extends AbstractContainerScreen<BoardMenu> {
     public void removed() {
         super.removed();
         // TODO: send BoardEditPacket
-    }
-
-    private class PageEditBox extends EditBox {
-        public PageEditBox(Font pFont, int pX, int pY, int pWidth, int pHeight, Component pMessage) {
-            super(pFont, pX, pY, pWidth, pHeight, pMessage);
-            setMaxLength(4);
-            setFilter(this::filterNumbers);
-            setFormatter((str, i) -> FormattedCharSequence.forward(str, BoardScreen.CHIP_FONT));
-        }
-
-        private boolean filterNumbers(String str) {
-            return Pattern.matches("[0-9]{4}", str);
-        }
     }
 }

@@ -13,6 +13,24 @@ public abstract class Processor extends BoardComponent {
     public abstract void reset();
 
     /**
+     * @deprecated Do not use this on the processor.
+     */
+    @Override
+    @Deprecated
+    public int read(int address) {
+        return super.read(address);
+    }
+
+    /**
+     * @deprecated Do not use this on the processor.
+     */
+    @Override
+    @Deprecated
+    public void write(int address, int value) {
+        super.write(address, value);
+    }
+
+    /**
      * Pages are sections of memory that can be allocated to components on the board.
      *
      * @return Size of one page in bytes.

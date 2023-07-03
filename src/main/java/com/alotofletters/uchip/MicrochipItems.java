@@ -1,8 +1,8 @@
 package com.alotofletters.uchip;
 
 import com.alotofletters.uchip.content.board.BoardItem;
-import com.alotofletters.uchip.content.board.memory.ram.RamItem;
-import com.alotofletters.uchip.content.board.memory.ram.RamType;
+import com.alotofletters.uchip.content.board.memory.MemoryItem;
+import com.alotofletters.uchip.content.board.memory.MemoryType;
 import com.alotofletters.uchip.content.board.processor.mos6502.MOS6502Item;
 import com.alotofletters.uchip.content.drone.DroneItem;
 import com.tterrag.registrate.Registrate;
@@ -36,7 +36,7 @@ public class MicrochipItems {
             .transform(MicrochipItems::chip)
             .register();
 
-    public static ItemEntry<RamItem> RAM_32K = ram("ram_32k", RamType.RAM_32K)
+    public static ItemEntry<MemoryItem> RAM_32K = ram("ram_32k", MemoryType.RAM_32K)
             .model(empty())
             .lang("32k SRAM") // TODO: cheaper but more power consuming dram?
             .transform(MicrochipItems::chip)
@@ -52,8 +52,8 @@ public class MicrochipItems {
         }; // no model generation
     }
 
-    private static ItemBuilder<RamItem, Registrate> ram(String name, RamType type) {
-        return REGISTRATE.item(name, (props) -> new RamItem(props, type));
+    private static ItemBuilder<MemoryItem, Registrate> ram(String name, MemoryType type) {
+        return REGISTRATE.item(name, (props) -> new MemoryItem(props, type));
     }
 
     private static <T extends Item> ItemBuilder<T, Registrate> chip(ItemBuilder<T, Registrate> builder) {
