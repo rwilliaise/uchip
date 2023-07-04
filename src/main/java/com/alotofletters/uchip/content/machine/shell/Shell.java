@@ -14,8 +14,9 @@ import javax.annotation.Nullable;
 
 public interface Shell extends MenuProvider {
     void setBoard(ItemStack stack);
-
     void write(FriendlyByteBuf buf);
+
+    boolean stillValid(Player player);
 
     ShellType getShellType();
 

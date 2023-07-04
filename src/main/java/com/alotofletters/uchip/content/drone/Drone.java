@@ -100,5 +100,10 @@ public class Drone extends PathfinderMob implements Shell {
     public void write(FriendlyByteBuf buf) {
         buf.writeInt(this.getId());
     }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return false;
+    }
 }
 

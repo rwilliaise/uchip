@@ -20,13 +20,6 @@ public class DroneItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        ItemStack stack = pPlayer.getItemInHand(pUsedHand);
-        // TODO: open drone screen
-        return InteractionResultHolder.pass(stack);
-    }
-
-    @Override
     public InteractionResult useOn(UseOnContext pContext) {
         Level level = pContext.getLevel();
         Vec3 loc = pContext.getClickLocation();

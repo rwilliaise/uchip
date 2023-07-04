@@ -153,10 +153,6 @@ public class MOS6502Processor extends Processor {
         this.value = read(this.address);
     }
 
-    private void indexedZeroPageIndirect() {
-
-    }
-
     // load
     private void lda() {
         this.accumulator = updateNZ(this.value);
@@ -377,9 +373,9 @@ public class MOS6502Processor extends Processor {
         programCounter++;
     }
 
+
     private void nop() {
-        cycles++;
-    } // 2 cycles
+    }
 
     // stack operations
     private void push(byte value) {
@@ -438,10 +434,19 @@ public class MOS6502Processor extends Processor {
     }
 
     private static void instruction(int op, Consumer<MOS6502Processor> cons, Consumer<MOS6502Processor> address) {
-        instruction(op, (p) -> {
+        instruction(op, p -> {
             address.accept(p);
             cons.accept(p);
         });
+    }
+
+    private static void branch(int op, Function<MOS6502Processor, Boolean> func) {
+        instruction(op, p -> {
+            if (func.apply(p)) {
+                p.cycles++;
+                p.programCounter = p.address;
+            }
+        }, MOS6502Processor::relative);
     }
 
     private static void whole(int low, Consumer<MOS6502Processor> cons) {
@@ -531,9 +536,9 @@ public class MOS6502Processor extends Processor {
 
         // arithmetic operations
         whole(0x60, MOS6502Processor::adc);
-        whole(0xc0, MOS6502Processor.cmp(p -> p.accumulator));
-        mini(0xe0, MOS6502Processor.cmp(p -> p.x));
-        mini(0xc0, MOS6502Processor.cmp(p -> p.x));
+        whole(0xc0, MOS6502Processor.cmp(p -> p.accumulator));  // cmp
+        mini(0xe0, MOS6502Processor.cmp(p -> p.x));             // cpx
+        mini(0xc0, MOS6502Processor.cmp(p -> p.x));             // cpy
         whole(0xe0, MOS6502Processor::sbc);
 
         // inc/dec
@@ -551,6 +556,25 @@ public class MOS6502Processor extends Processor {
         instruction(0x20, MOS6502Processor::jsr, MOS6502Processor::absolute);
         instruction(0x40, MOS6502Processor::rti);
         instruction(0x60, MOS6502Processor::rts);
+
+        // branch
+        branch(0x90, p -> !p.testFlag(CARRY));      // bcc
+        branch(0xb0, p -> p.testFlag(CARRY));       // bcs
+        branch(0xf0, p -> p.testFlag(ZERO));        // beq
+        branch(0x30, p -> p.testFlag(NEGATIVE));    // bmi
+        branch(0xd0, p -> !p.testFlag(ZERO));       // bne
+        branch(0x10, p -> !p.testFlag(NEGATIVE));   // bpl
+        branch(0x50, p -> !p.testFlag(OVERFLOW));   // bvc
+        branch(0x70, p -> p.testFlag(OVERFLOW));    // bvs
+
+        // flag ops
+        instruction(0x18, p -> p.setFlag(CARRY, false));                // clc
+        instruction(0xd8, p -> p.setFlag(DECIMAL, false));              // cld
+        instruction(0x58, p -> p.setFlag(INTERRUPT_DISABLE, false));    // cli
+        instruction(0xb8, p -> p.setFlag(OVERFLOW, false));             // clv
+        instruction(0x38, p -> p.setFlag(CARRY, true));                 // sec
+        instruction(0xf8, p -> p.setFlag(DECIMAL, true));               // sed
+        instruction(0x78, p -> p.setFlag(INTERRUPT_DISABLE, true));     // sei
 
         // nop
         instruction(0xea, MOS6502Processor::nop);
