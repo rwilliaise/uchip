@@ -8,6 +8,9 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
+/**
+ * Abstraction for a menu that uses an item as an inventory.
+ */
 public abstract class ItemMenu extends AbstractContainerMenu {
     public ItemStack stack;
     protected Inventory playerInventory;
@@ -24,6 +27,9 @@ public abstract class ItemMenu extends AbstractContainerMenu {
         initialize(inventory, item);
     }
 
+    /**
+     * @return ItemStackHandler associated with the item.
+     */
     protected abstract ItemStackHandler createItemInventory();
 
     protected void initialize(Inventory inventory, ItemStack owner) {

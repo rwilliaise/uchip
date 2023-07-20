@@ -4,6 +4,9 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 
+/**
+ * Widget that is used to select between different enum options. 
+ */
 public class DropdownMenu extends AbstractWidget {
 
     public DropdownMenu(int pX, int pY, int pWidth, int pHeight, Component pMessage) {

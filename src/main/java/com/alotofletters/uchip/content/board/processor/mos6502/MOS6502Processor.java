@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * A semi-finished emulator for the MOS 6502 processor. Includes a working ROR
+ * instruction, however does not have the illegal opcodes.
+ */
 public class MOS6502Processor extends Processor {
     private static final HashMap<Byte, Consumer<MOS6502Processor>> INSTRUCTIONS = Maps.newHashMap();
 

@@ -10,6 +10,10 @@ import java.util.function.Function;
 
 import com.alotofletters.uchip.core.net.MicrochipPacket;
 
+/**
+ * Registers {@link MicrochipPacket} objects and handles a {@link SimpleChannel}
+ * to send aforementioned packets.
+ */
 public class MicrochipPackets {
 
     private static final String PROTOCOL_VERSION = "1";

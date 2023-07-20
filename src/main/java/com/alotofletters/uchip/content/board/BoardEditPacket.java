@@ -8,6 +8,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
+/**
+ * Packet to update the board item stack with new settings given by the client.
+ */
 public class BoardEditPacket extends MicrochipPacket {
     private final Board board;
 

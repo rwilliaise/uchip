@@ -7,6 +7,9 @@ import net.minecraft.world.item.ItemStack;
 
 import java.nio.ByteBuffer;
 
+/**
+ * Component that wraps a ByteBuffer. Used for both RAM and ROM.
+ */
 public class MemoryComponent extends BoardComponent {
     private final MemoryType type;
     private ByteBuffer buffer;

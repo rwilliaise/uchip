@@ -4,6 +4,9 @@ import com.alotofletters.uchip.core.board.Board;
 import com.alotofletters.uchip.core.board.BoardComponent;
 import net.minecraft.world.item.ItemStack;
 
+/**
+ * Represents the MOS 6522 Versatile Interface Adapter.
+ */
 public class MOS6522VIA extends BoardComponent {
 
     public MOS6522VIA(Board owner, ItemStack stack) {
