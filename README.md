@@ -1,4 +1,5 @@
 # uchip
+<a href="https://raja.rocks/projects/E130P0710A00.html"><img alt="Static Badge" src="https://img.shields.io/badge/raja.rocks-E130P0710A00-lightgray?style=flat-square"></a>
 
 A mod built around emulating microprocessors and building computers utilizing
 them. Computers can control monoliths of computer cases, or fly on drones with
